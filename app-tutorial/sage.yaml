@@ -1,0 +1,13 @@
+name: "app-tutorial"
+version: "0.1.0"
+description: "My really amazing app!"
+keywords: ""
+authors: "Samuel Watson"
+collaborators: ""
+funding: ""
+license: ""
+homepage: ""
+source:
+  architectures:
+    - "linux/amd64"
+    - "linux/arm64"
