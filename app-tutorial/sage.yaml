@@ -1,5 +1,5 @@
 name: "app-tutorial"
-version: "0.1.0"
+version: "0.2.0"
 description: "Tutorial edge app that computes the mean, min, and max of each color channel of an image and publishes the results with a snapshot."
 keywords: "tutorial, color, image, summer-camp"
 authors: "Samuel Watson <scwatson@hawaii.edu>"
