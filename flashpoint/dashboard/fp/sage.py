@@ -38,6 +38,17 @@ def load_cases():
     return json.loads((ASSETS / "cases.json").read_text())["cases"]
 
 
+def _parse_env_value(raw):
+    """Value part of a KEY=VALUE line: honor surrounding quotes (so a '#' or
+    space inside quotes survives), else strip an inline '# comment'."""
+    raw = raw.strip()
+    if raw and raw[0] in "'\"":
+        q = raw[0]
+        end = raw.find(q, 1)
+        return raw[1:end] if end != -1 else raw[1:]
+    return raw.split("#", 1)[0].strip()
+
+
 def env_credentials():
     """(user, token) from the environment / flashpoint/.env — never committed."""
     user = os.environ.get("SAGE_USER", "")
@@ -45,12 +56,14 @@ def env_credentials():
     envfile = ROOT / ".env"
     if (not user or not token) and envfile.exists():
         for line in envfile.read_text().splitlines():
-            m = re.match(r"^\s*(SAGE_USER|SAGE_TOKEN)\s*=\s*['\"]?([^'\"#]+)", line)
-            if m:
-                if m.group(1) == "SAGE_USER" and not user:
-                    user = m.group(2).strip()
-                if m.group(1) == "SAGE_TOKEN" and not token:
-                    token = m.group(2).strip()
+            m = re.match(r"^\s*(?:export\s+)?(SAGE_USER|SAGE_TOKEN)\s*=\s*(.*)$", line)
+            if not m:
+                continue
+            val = _parse_env_value(m.group(2))
+            if m.group(1) == "SAGE_USER" and not user:
+                user = val
+            if m.group(1) == "SAGE_TOKEN" and not token:
+                token = val
     return user, token
 
 
@@ -88,19 +101,40 @@ def met_series(vsn, name_regex, start_iso, end_iso):
     return out.dropna(subset=["value"]).sort_values("timestamp").reset_index(drop=True)
 
 
+# Nodes publish env.temperature from two BME sensors: bme280 sits inside the
+# enclosure (runs tens of °C hot) and bme680 reads ambient air. Only ambient is
+# valid for the speed of sound, so averaging both would bias every range.
+AMBIENT_TEMP_SENSOR = "bme680"
+
+
 def temperature_at(vsn, when, half_window_min=30):
-    """Mean env temperature (°C) around `when`, or None. Used to set the speed
-    of sound for flash-to-bang ranging."""
+    """Mean *ambient* temperature (°C) around `when`, or None. Sets the speed of
+    sound for flash-to-bang ranging (+0.6 m/s per °C)."""
+    import sage_data_client
+
     t = pd.Timestamp(when)
     if t.tzinfo is None:
         t = t.tz_localize("UTC")
     start = (t - pd.Timedelta(minutes=half_window_min)).isoformat()
     end = (t + pd.Timedelta(minutes=half_window_min)).isoformat()
     try:
-        df = met_series(vsn, "env.temperature", start, end)
+        df = sage_data_client.query(
+            start=start, end=end,
+            filter={"name": "env.temperature", "vsn": vsn,
+                    "sensor": AMBIENT_TEMP_SENSOR})
+        if df.empty:  # older deployments may not tag a sensor — fall back
+            df = sage_data_client.query(
+                start=start, end=end,
+                filter={"name": "env.temperature", "vsn": vsn})
+            if "meta.sensor" in df.columns and df["meta.sensor"].notna().any():
+                # drop the hot in-enclosure sensor; keep the coolest series
+                df = df[df["meta.sensor"] != "bme280"]
     except Exception:
         return None
-    return float(df["value"].mean()) if len(df) else None
+    if not len(df):
+        return None
+    vals = pd.to_numeric(df["value"], errors="coerce").dropna()
+    return float(vals.mean()) if len(vals) else None
 
 
 def cache_path_for(url):
@@ -115,11 +149,14 @@ def fetch_media(url, user="", token="", timeout=90, session=None):
 
     Raises SageAuthError on 401/403 so the UI can prompt for credentials.
     """
+    # Confine credentials to the canonical storage host: the URL comes from the
+    # public (unauthenticated) query API's `value` column, so a poisoned upload
+    # record must never be able to receive the portal token.
+    if not url.startswith(STORAGE_PREFIX):
+        raise ValueError(f"refusing non-storage media url: {url}")
     dest = cache_path_for(url)
     if dest.exists() and dest.stat().st_size > 0:
         return dest
-    if not url.startswith("https://"):
-        raise ValueError(f"refusing non-https media url: {url}")
     auth = (user, token) if (user and token) else None
     http = session or requests
     r = http.get(url, auth=auth, timeout=timeout,

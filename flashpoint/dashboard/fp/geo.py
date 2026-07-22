@@ -114,37 +114,51 @@ def trilaterate(anchors_xy, ranges_m, sigmas_m):
     best = alternates[0]
     p = best["xy"]
 
-    # covariance from the weighted Jacobian at the solution
+    # covariance + GDOP from the weighted Jacobian at the solution
     d = np.maximum(np.hypot(A[:, 0] - p[0], A[:, 1] - p[1]), 1e-6)
     J = np.stack([(p[0] - A[:, 0]) / d, (p[1] - A[:, 1]) / d], axis=1)
     Jw = J * w[:, None]
     JtJ = Jw.T @ Jw
-    try:
-        cov = np.linalg.inv(JtJ)
-    except np.linalg.LinAlgError:
-        cov = np.full((2, 2), np.inf)
-    # scale by residual variance when overdetermined (keeps honest error bars)
+
+    # Geometry conditioning. A rank-deficient normal matrix (two rings from the
+    # same node, or a fully collinear set) has a near-zero eigenvalue; the
+    # solution is unconstrained along that axis. Using pinv here would HIDE that
+    # (it drops the null eigenvalue and reports a small, "good" GDOP), so detect
+    # degeneracy explicitly and report it honestly instead of inventing numbers.
+    unit_evals = np.linalg.eigvalsh(J.T @ J)  # DOP from unit-weight geometry
+    degenerate = unit_evals.min() <= unit_evals.max() * 1e-9
+    gdop = float("inf") if degenerate else float(np.sqrt(np.sum(1.0 / unit_evals)))
+
     dof = max(n - 2, 1)
     res = _residuals(p, A, r) * w
     scale = max(float(res @ res) / dof, 1.0) if n > 2 else 1.0
-    cov = cov * scale
-
-    evals, evecs = np.linalg.eigh(cov)
-    evals = np.maximum(evals, 0.0)
-    semi_minor, semi_major = np.sqrt(evals)
-    angle = math.degrees(math.atan2(evecs[1, 1], evecs[0, 1]))
-    gdop = float(np.sqrt(np.trace(np.linalg.pinv(J.T @ J))))
+    if degenerate:
+        semi_major = semi_minor = float("inf")
+        angle = 0.0
+    else:
+        cov = np.linalg.inv(JtJ) * scale
+        evals, evecs = np.linalg.eigh(cov)
+        evals = np.maximum(evals, 0.0)
+        semi_minor, semi_major = (float(np.sqrt(evals[0])), float(np.sqrt(evals[1])))
+        angle = math.degrees(math.atan2(evecs[1, 1], evecs[0, 1]))
     rms = float(np.sqrt(np.mean(_residuals(p, A, r) ** 2)))
+
+    # Bimodal = the runner-up solution is (near-)tied with the best. True for
+    # 2-ring fixes, but also for 3+ near-collinear anchors with a mirror image.
+    runner = alternates[1]["cost"] if len(alternates) > 1 else None
+    bimodal = n == 2 or (
+        runner is not None and runner <= best["cost"] + max(1.0, 0.05 * best["cost"]))
 
     return {
         "xy": (float(p[0]), float(p[1])),
-        "semi_major_m": float(semi_major),
-        "semi_minor_m": float(semi_minor),
-        "angle_deg": float(angle),
+        "semi_major_m": semi_major,
+        "semi_minor_m": semi_minor,
+        "angle_deg": angle,
         "rms_m": rms,
         "gdop": gdop,
         "n_nodes": n,
-        "bimodal": n == 2,
+        "bimodal": bool(bimodal),
+        "degenerate": bool(degenerate),
         "alternates": [(float(q["xy"][0]), float(q["xy"][1])) for q in alternates[1:3]],
     }
 

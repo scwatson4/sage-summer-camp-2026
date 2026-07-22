@@ -104,6 +104,17 @@ def styled(chart, height=180):
     return configured(chart.properties(height=height))
 
 
+def for_chart(df, col="timestamp"):
+    """Copy with the time column as tz-naive UTC wall-clock. Vega-Lite renders
+    naive datetimes verbatim (no browser-timezone shift), so this keeps every
+    axis honest to the app's 'all times UTC' promise regardless of viewer TZ."""
+    d = df.copy()
+    if col in d.columns:
+        s = pd.to_datetime(d[col], utc=True)
+        d[col] = s.dt.tz_convert("UTC").dt.tz_localize(None)
+    return d
+
+
 def creds():
     user = st.session_state.get("sage_user", "")
     token = st.session_state.get("sage_token", "")
@@ -292,11 +303,10 @@ def rings_layers(board, nodes_df):
         la, lo = float(n.iloc[0].lat), float(n.iloc[0].lon)
         rings.append({"path": geo.ring_path(la, lo, m["range_m"]),
                       "tooltip": f"{m['vsn']} range {m['range_m']/1000:.2f} ± {m['sigma_m']/1000:.2f} km"})
-        for s_mult, alpha in ((1, 90),):
-            for r in (m["range_m"] - m["sigma_m"], m["range_m"] + m["sigma_m"]):
-                if r > 100:
-                    rings.append({"path": geo.ring_path(la, lo, r),
-                                  "tooltip": "", "thin": True})
+        for r in (m["range_m"] - m["sigma_m"], m["range_m"] + m["sigma_m"]):
+            if r > 100:  # ±1σ envelope rings (thin), share the parent's tooltip
+                rings.append({"path": geo.ring_path(la, lo, r), "thin": True,
+                              "tooltip": f"{m['vsn']} range ±1σ edge"})
     if rings:
         d = pd.DataFrame(rings)
         d["w"] = [1 if r.get("thin") else 3 for r in rings]
@@ -317,18 +327,24 @@ def rings_layers(board, nodes_df):
         if est:
             ela, elo = geo.to_latlon(*est["xy"], lat0, lon0)
             est["lat"], est["lon"] = ela, elo
-            ell = geo.ellipse_polygon(ela, elo, max(est["semi_major_m"], 30),
-                                      max(est["semi_minor_m"], 30), est["angle_deg"])
-            layers.append(pdk.Layer("PolygonLayer", pd.DataFrame([{"poly": ell}]),
-                                    get_polygon="poly", get_fill_color=pal.MAP_ELLIPSE,
-                                    get_line_color=[11, 11, 11, 160], get_line_width=2,
-                                    line_width_units="pixels"))
+            finite = np.isfinite([est["semi_major_m"], est["semi_minor_m"]]).all()
+            if finite and not est.get("degenerate"):  # a bounded uncertainty ellipse
+                ell = geo.ellipse_polygon(ela, elo, max(est["semi_major_m"], 30),
+                                          max(est["semi_minor_m"], 30), est["angle_deg"])
+                layers.append(pdk.Layer("PolygonLayer", pd.DataFrame([{"poly": ell}]),
+                                        get_polygon="poly", get_fill_color=pal.MAP_ELLIPSE,
+                                        get_line_color=[11, 11, 11, 160], get_line_width=2,
+                                        line_width_units="pixels"))
+            gdop_txt = "∞" if not np.isfinite(est["gdop"]) else f"{est['gdop']:.1f}"
+            err_txt = ("unbounded" if not finite
+                       else f"±{est['semi_major_m']:.0f} m")
             pts = [{"lat": ela, "lon": elo,
-                    "tooltip": (f"⚡ strike estimate ±{est['semi_major_m']:.0f} m "
-                                f"(GDOP {est['gdop']:.1f}, {est['n_nodes']} nodes)")}]
+                    "tooltip": (f"⚡ strike estimate {err_txt} "
+                                f"(GDOP {gdop_txt}, {est['n_nodes']} nodes)")}]
             for ax, ay in est["alternates"] if est["bimodal"] else []:
                 ala, alo = geo.to_latlon(ax, ay, lat0, lon0)
-                pts.append({"lat": ala, "lon": alo, "tooltip": "⚡ alternate solution (2-node ambiguity)"})
+                pts.append({"lat": ala, "lon": alo,
+                            "tooltip": "⚡ alternate solution (geometry ambiguous)"})
             layers.append(pdk.Layer("ScatterplotLayer", pd.DataFrame(pts),
                                     get_position=["lon", "lat"],
                                     get_fill_color=pal.MAP_STRIKE, get_radius=120,
@@ -493,16 +509,29 @@ with tab_img:
                 if len(ldf) >= 5:
                     ldf = mark_flashes(ldf)
                     n_cand = int(ldf.flash.sum())
-                    base = alt.Chart(ldf).encode(
+                    n_nodes = ldf.vsn.nunique() if "vsn" in ldf else 1
+                    base = alt.Chart(for_chart(ldf)).encode(
                         x=alt.X("timestamp:T", title=None,
-                                axis=alt.Axis(format="%H:%M")))
-                    line = base.mark_line(color=pal.CAMERA, strokeWidth=2) \
-                        .encode(y=alt.Y("luma:Q", title="mean luminance"),
-                                detail="vsn:N")
-                    pts = base.mark_point(color=pal.CAMERA, filled=True, size=36) \
-                        .encode(y="luma:Q",
-                                tooltip=[alt.Tooltip("timestamp:T", format="%m-%d %H:%M:%S"),
-                                         alt.Tooltip("luma:Q", format=".0f"), "vsn:N"])
+                                axis=alt.Axis(format="%m-%d %H:%M")))
+                    if n_nodes > 1:  # distinguish nodes by hue + legend, not shape alone
+                        color = alt.Color("vsn:N", title="node",
+                                          scale=alt.Scale(range=[pal.CAMERA, pal.AUDIO, pal.MET,
+                                                                 pal.INK_2]))
+                        line = base.mark_line(strokeWidth=2).encode(
+                            y=alt.Y("luma:Q", title="mean luminance"), color=color, detail="vsn:N")
+                        pts = base.mark_point(filled=True, size=36).encode(
+                            y="luma:Q", color=color,
+                            tooltip=[alt.Tooltip("timestamp:T", format="%m-%d %H:%M:%S", title="UTC"),
+                                     alt.Tooltip("luma:Q", format=".0f"), "vsn:N"])
+                        legend_note = f"{n_nodes} nodes by color"
+                    else:
+                        line = base.mark_line(color=pal.CAMERA, strokeWidth=2).encode(
+                            y=alt.Y("luma:Q", title="mean luminance"), detail="vsn:N")
+                        pts = base.mark_point(color=pal.CAMERA, filled=True, size=36).encode(
+                            y="luma:Q",
+                            tooltip=[alt.Tooltip("timestamp:T", format="%m-%d %H:%M:%S", title="UTC"),
+                                     alt.Tooltip("luma:Q", format=".0f"), "vsn:N"])
+                        legend_note = "luminance in blue"
                     flashes = base.transform_filter(alt.datum.flash).mark_rule(
                         color=pal.FLASH, strokeWidth=2).encode(tooltip=alt.value("⚡ flash candidate"))
                     ftext = base.transform_filter(alt.datum.flash).mark_text(
@@ -511,7 +540,7 @@ with tab_img:
                                     use_container_width=True)
                     st.caption(f"— {n_cand} flash-candidate frame(s) "
                                f"(robust-z luminance spikes, per node) · "
-                               f"⚡ marks; luminance in blue")
+                               f"⚡ marks; {legend_note}")
 
                 # A/B compare
                 st.divider()
@@ -605,29 +634,33 @@ with tab_sync:
                     f"({len(a_listing)} listed).")
         else:
             # ---- synchronized tracks (shared UTC x-domain, one measure per panel)
+            span_days = (hi - lo).total_seconds() / 86400
+            xfmt = "%m-%d %H:%M" if span_days > 1 else "%H:%M"
+            tfmt = "%m-%d %H:%M:%S" if span_days > 1 else "%H:%M:%S"
             dom = [lo.tz_convert(None).isoformat(), hi.tz_convert(None).isoformat()]
-            x = alt.X("timestamp:T", title=None, axis=alt.Axis(format="%H:%M"),
+            x = alt.X("timestamp:T", title=None, axis=alt.Axis(format=xfmt),
                       scale=alt.Scale(domain=dom))
             charts = []
             if len(ldf) >= 2:
                 ldf = mark_flashes(ldf)
-                lum = (alt.Chart(ldf, title=alt.Title("camera — mean luminance",
+                lum = (alt.Chart(for_chart(ldf), title=alt.Title("camera — mean luminance",
                                                       color=pal.CAMERA, fontSize=12))
                        .mark_line(color=pal.CAMERA, strokeWidth=2, point={"filled": True, "color": pal.CAMERA})
                        .encode(x=x, y=alt.Y("luma:Q", title=None),
-                               tooltip=[alt.Tooltip("timestamp:T", format="%H:%M:%S"),
+                               tooltip=[alt.Tooltip("timestamp:T", format=tfmt, title="UTC"),
                                         alt.Tooltip("luma:Q", format=".0f")]))
-                fl = (alt.Chart(ldf).transform_filter(alt.datum.flash)
-                      .mark_rule(color=pal.FLASH, strokeWidth=2).encode(x=x))
+                fl = (alt.Chart(for_chart(ldf)).transform_filter(alt.datum.flash)
+                      .mark_rule(color=pal.FLASH, strokeWidth=2)
+                      .encode(x=x, tooltip=alt.value("⚡ flash candidate")))
                 charts.append((lum + fl).properties(height=140))
-            aud = (alt.Chart(adf, title=alt.Title("audio — low-band (20–150 Hz) peak, dB",
+            aud = (alt.Chart(for_chart(adf), title=alt.Title("audio — low-band (20–150 Hz) peak, dB",
                                                   color=pal.AUDIO, fontSize=12))
                    .mark_point(filled=True, size=70, color=pal.AUDIO)
                    .encode(x=x, y=alt.Y("low_peak_db:Q", title=None),
                            opacity=alt.Opacity("low_ratio:Q",
                                                scale=alt.Scale(range=[0.35, 1.0]),
                                                legend=None),
-                           tooltip=[alt.Tooltip("timestamp:T", format="%H:%M:%S"),
+                           tooltip=[alt.Tooltip("timestamp:T", format=tfmt, title="UTC"),
                                     alt.Tooltip("low_peak_db:Q", format=".1f", title="low-band dB"),
                                     alt.Tooltip("low_ratio:Q", format=".2f", title="low-band ratio"),
                                     alt.Tooltip("duration_s:Q", format=".0f", title="clip s")]))
@@ -644,17 +677,18 @@ with tab_sync:
             elif st.session_state.get("offline"):
                 met = pd.DataFrame()
             else:
-                try:
-                    met = q_met(case["vsn"], met_key, lo.isoformat(), hi.isoformat())
+                try:  # met from the SELECTED node, matching the other tracks
+                    met = q_met(sel_vsn, met_key, lo.isoformat(), hi.isoformat())
                 except Exception:
                     met = pd.DataFrame()
             if len(met):
                 m = met.set_index("timestamp").resample("5min")["value"].mean().dropna().reset_index()
                 charts.append(
-                    alt.Chart(m, title=alt.Title(f"met — {met_name}", color=pal.MET, fontSize=12))
+                    alt.Chart(for_chart(m), title=alt.Title(f"met — {met_name} ({sel_vsn})",
+                                                            color=pal.MET, fontSize=12))
                     .mark_line(color=pal.MET, strokeWidth=2)
                     .encode(x=x, y=alt.Y("value:Q", title=None),
-                            tooltip=[alt.Tooltip("timestamp:T", format="%H:%M:%S"),
+                            tooltip=[alt.Tooltip("timestamp:T", format=tfmt, title="UTC"),
                                      alt.Tooltip("value:Q", format=".2f")])
                     .properties(height=110))
             st.altair_chart(configured(alt.vconcat(*charts).resolve_scale(x="shared")),
@@ -725,8 +759,8 @@ with tab_sync:
             f1, f2, f3, f4 = st.columns([2, 1.4, 1.2, 1.2])
             with f1:
                 flash_opts = []
-                if len(ldf):
-                    fc = ldf[ldf.get("flash", False) == True]  # noqa: E712
+                if len(ldf) and "flash" in ldf.columns:
+                    fc = ldf[ldf["flash"]]
                     flash_opts = sorted(utc(t) for t in fc.timestamp)
                 # best default: the nearest flash BEFORE the (guessed) bang —
                 # thunder never precedes its flash, and 300 s ≈ 100 km already
@@ -833,14 +867,24 @@ with tab_sync:
             map_legend("node", "ring", "strike", "fire",
                        *( ["truth"] if truth_on else []))
 
-            if est:
+            if est and (est.get("degenerate") or not np.isfinite(est["semi_major_m"])):
+                st.warning(
+                    f"**Strike under-constrained** at {est['lat']:.5f}, {est['lon']:.5f} — "
+                    "the ring geometry is degenerate (rings from the same node, or "
+                    "collinear nodes), so the fix is unbounded along one axis "
+                    "(GDOP ∞). Add a ring from a node off that line to pin it down.",
+                    icon="⚠️")
+            elif est:
+                ambig = ""
+                if est["bimodal"]:
+                    ambig = (", ⚠️ two-ring solution is ambiguous — both shown"
+                             if est["n_nodes"] == 2
+                             else ", ⚠️ near-collinear geometry — mirror solution shown")
                 st.success(
                     f"**Strike estimate:** {est['lat']:.5f}, {est['lon']:.5f} — "
                     f"1σ ellipse {est['semi_major_m']:.0f} × {est['semi_minor_m']:.0f} m, "
                     f"GDOP {est['gdop']:.1f}, rms residual {est['rms_m']:.0f} m "
-                    f"({est['n_nodes']} rings"
-                    + (", ⚠️ two-ring solution is ambiguous — both shown" if est["bimodal"] else "")
-                    + ")", icon="⚡")
+                    f"({est['n_nodes']} rings{ambig})", icon="⚡")
                 for f in case.get("fires", []):
                     d = geo.dist_km(est["lat"], est["lon"], f["lat"], f["lon"])
                     if f.get("featured") or d < 20:

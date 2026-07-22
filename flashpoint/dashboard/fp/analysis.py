@@ -12,7 +12,7 @@ import io
 import numpy as np
 import soundfile as sf
 from PIL import Image
-from scipy import signal
+from scipy import ndimage, signal
 
 THUNDER_BAND = (20.0, 150.0)  # Hz — thunder's dominant energy
 EPS = 1e-12
@@ -51,7 +51,9 @@ def flash_candidates(times, lumas, z_thresh=4.0, min_jump=8.0):
     if len(x) < 5:
         return []
     k = min(7, len(x) if len(x) % 2 else len(x) - 1)
-    baseline = signal.medfilt(x, kernel_size=k)
+    # edge-replicated (not zero-padded) median, else a rising dawn/clearing ramp
+    # collapses its own trailing baseline and the newest frames look like flashes
+    baseline = ndimage.median_filter(x, size=k, mode="nearest")
     d = x - baseline
     mad = np.median(np.abs(d - np.median(d))) + EPS
     z = 0.6745 * (d - np.median(d)) / mad
@@ -110,11 +112,16 @@ def clip_features(y, sr):
 
 
 def bandpass(y, sr, lo, hi, order=4):
+    y = np.asarray(y)
     nyq = sr / 2
     hi = min(hi, nyq * 0.95)
     if lo >= hi:
         return y
     sos = signal.butter(order, [lo / nyq, hi / nyq], btype="band", output="sos")
+    # sosfiltfilt raises if the clip is shorter than its edge padding; a
+    # truncated/corrupt FLAC should degrade to "no onset", not crash the tab.
+    if len(y) <= 3 * (2 * len(sos) + 1):
+        return y
     return signal.sosfiltfilt(sos, y)
 
 
