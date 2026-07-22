@@ -1,0 +1,1342 @@
+{
+ "generated": "2026-07-22T15:16:42+00:00",
+ "source": "https://auth.sagecontinuum.org/manifests/?format=json",
+ "nodes": [
+  {
+   "vsn": "H00B",
+   "lat": 41.8697867,
+   "lon": -87.6479701127,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H011",
+   "lat": 44.04850515301675,
+   "lon": -123.06933587517985,
+   "address": "1600 Millrace Dr, Eugene, OR",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H016",
+   "lat": 44.04850515301675,
+   "lon": -123.06933587517985,
+   "address": "1600 Millrace Dr, Eugene, OR",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H017",
+   "lat": 44.04850515301675,
+   "lon": -123.06933587517985,
+   "address": "1600 Millrace Dr, Eugene, OR",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H019",
+   "lat": 40.841643291439325,
+   "lon": -104.71608518646835,
+   "address": "58009 Co Rd 37, Nunn, CO",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H01B",
+   "lat": 40.569270792747744,
+   "lon": -105.07921747993582,
+   "address": "200 W Lake St., Fort Collins, CO",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H01C",
+   "lat": 41.36647912486623,
+   "lon": -106.24000089583429,
+   "address": "Medicine Bow-Routt National Forest",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H01D",
+   "lat": 41.869838410775564,
+   "lon": -87.64808471890812,
+   "address": "842 W Taylor St #2032, Chicago, IL",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H01E",
+   "lat": 41.8697867,
+   "lon": -87.6479701127,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H01F",
+   "lat": 41.869838410775564,
+   "lon": -87.64808471890812,
+   "address": "842 W Taylor St, Chicago, IL",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H020",
+   "lat": 41.869838410775564,
+   "lon": -87.64808471890812,
+   "address": "842 W Taylor St, Chicago, IL",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H021",
+   "lat": 41.8697867,
+   "lon": -87.6479701127,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H022",
+   "lat": 41.869838410775564,
+   "lon": -87.64808471890812,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H023",
+   "lat": 41.869838410775564,
+   "lon": -87.64808471890812,
+   "address": "842 W Taylor St, Chicago, IL",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H024",
+   "lat": 44.04850515301675,
+   "lon": -123.06933587517985,
+   "address": "1600 Millrace Dr, Eugene, OR",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H02A",
+   "lat": 41.8697867,
+   "lon": -87.6479701127,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H02C",
+   "lat": 41.8697867,
+   "lon": -87.6479701127,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H02D",
+   "lat": 41.8697867,
+   "lon": -87.6479701127,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H02E",
+   "lat": 41.718182170786356,
+   "lon": -87.98336742448174,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H02F",
+   "lat": 41.718182170786356,
+   "lon": -87.98336742448174,
+   "address": "Argonne 9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H030",
+   "lat": 41.718182170786356,
+   "lon": -87.98336742448174,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H031",
+   "lat": 41.7179852752395,
+   "lon": -87.98271513806043,
+   "address": "Argonne 9700 South Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H032",
+   "lat": 41.718182170786356,
+   "lon": -87.98336742448174,
+   "address": "Argonne 9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H033",
+   "lat": 41.718182170786356,
+   "lon": -87.98336742448174,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H034",
+   "lat": 41.7179852752395,
+   "lon": -87.98271513806043,
+   "address": "Argonne 9700 South Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H035",
+   "lat": 41.8697867,
+   "lon": -87.6479701127,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H037",
+   "lat": 41.718182170786356,
+   "lon": -87.98336742448174,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H039",
+   "lat": 41.869838410775564,
+   "lon": -87.64808471890812,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H03A",
+   "lat": 41.8697867,
+   "lon": -87.6479701127,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H03B",
+   "lat": 41.8697867,
+   "lon": -87.6479701127,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H03C",
+   "lat": 41.8697867,
+   "lon": -87.6479701127,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H03D",
+   "lat": 41.8697867,
+   "lon": -87.6479701127,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H03E",
+   "lat": 41.8697867,
+   "lon": -87.6479701127,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H03F",
+   "lat": 41.8697867,
+   "lon": -87.6479701127,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H040",
+   "lat": 41.8697867,
+   "lon": -87.6479701127,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H041",
+   "lat": 41.869838410775564,
+   "lon": -87.64808471890812,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H042",
+   "lat": 41.8697867,
+   "lon": -87.6479701127,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "H043",
+   "lat": 41.869838410775564,
+   "lon": -87.64808471890812,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "N001",
+   "lat": 41.869875299109395,
+   "lon": -87.64791476751783,
+   "address": "842 W Taylor St #2032, Chicago, IL 60607",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "N002",
+   "lat": 41.71829067942003,
+   "lon": -87.98287155976239,
+   "address": "9700 South Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V001",
+   "lat": 40.01631,
+   "lon": -105.24585,
+   "address": "1685 38th St #100, Boulder, CO 80301",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V002",
+   "lat": 38.893794,
+   "lon": -78.142847,
+   "address": "Smithsonian Conservation Biology Institute 1500 Remount Rd, Front Royal, VA 22630",
+   "mic": false,
+   "cam": true
+  },
+  {
+   "vsn": "V004",
+   "lat": 31.91084,
+   "lon": -110.8354,
+   "address": "Pima County, AZ",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V005",
+   "lat": 42.536921,
+   "lon": -72.17252,
+   "address": "Petersham School District Petersham, MA",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V008",
+   "lat": 65.153224,
+   "lon": -147.50397,
+   "address": "Fairbanks North Star Borough School District Fairbanks, AK",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V010",
+   "lat": 41.718223,
+   "lon": -87.982476,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V011",
+   "lat": 41.718223,
+   "lon": -87.982476,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V014",
+   "lat": 41.7179852752395,
+   "lon": -87.98271513806043,
+   "address": "Argonne 9700 South Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V015",
+   "lat": 44.291274,
+   "lon": -123.54126,
+   "address": "Prairie Mountain, Alsea, OR 97324",
+   "mic": true,
+   "cam": false
+  },
+  {
+   "vsn": "V016",
+   "lat": 32.702097,
+   "lon": -116.763645,
+   "address": "Lyons Valley Rd, Lyons Peek east of Jamul, CA 91935",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V017",
+   "lat": 32.737843,
+   "lon": -116.577345,
+   "address": "Los Pinos Rd, Los Pinos south of Pine Valley, CA 92530",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V019",
+   "lat": 33.334633,
+   "lon": -116.919379,
+   "address": "Boucher Hill on Palomar Mountain, CA 92061",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V020",
+   "lat": 32.647374,
+   "lon": -116.318049,
+   "address": "1684 Tierra Del Sol Rd, White Start near Boulevard, CA 91905",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V021",
+   "lat": 33.400167,
+   "lon": -117.191144,
+   "address": "Reservoir Rd, Fallbrook, CA 92028 Red Mountain near Fallbrook, CA",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V022",
+   "lat": 33.308056,
+   "lon": -116.854964,
+   "address": "21941 Crestline Rd, Birch Hill on Palomar Mountain, CA 92060",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V023",
+   "lat": 32.946469,
+   "lon": -116.603424,
+   "address": "Cuyamaca Peak, CA 91916",
+   "mic": true,
+   "cam": false
+  },
+  {
+   "vsn": "V024",
+   "lat": 41.718223,
+   "lon": -87.982476,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V025",
+   "lat": 36.60763,
+   "lon": -97.488145,
+   "address": "E 0280 Road, Hunter, OK 74640",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V026",
+   "lat": 41.718223,
+   "lon": -87.982476,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V027",
+   "lat": 41.718223,
+   "lon": -87.982476,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V029",
+   "lat": 41.718223,
+   "lon": -87.982476,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V030",
+   "lat": 41.718223,
+   "lon": -87.982476,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V031",
+   "lat": 40.76041,
+   "lon": -111.844051,
+   "address": "72 South Central Campus Drive, Salt Lake City, UT",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V032",
+   "lat": 41.718223,
+   "lon": -87.982476,
+   "address": "Lemont, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "V033",
+   "lat": 41.718223,
+   "lon": -87.982476,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V034",
+   "lat": 41.718223,
+   "lon": -87.982476,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V035",
+   "lat": 41.718223,
+   "lon": -87.982476,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V036",
+   "lat": 41.718223,
+   "lon": -87.982476,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V037",
+   "lat": 41.718223,
+   "lon": -87.982476,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V038",
+   "lat": 41.718223,
+   "lon": -87.982476,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V039",
+   "lat": 41.718223,
+   "lon": -87.982476,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V040",
+   "lat": 43.84284,
+   "lon": -122.892196,
+   "address": "Bear Mt., OR 97424",
+   "mic": false,
+   "cam": true
+  },
+  {
+   "vsn": "V041",
+   "lat": 43.522172,
+   "lon": -123.107415,
+   "address": "Harness Mt., OR 97424",
+   "mic": false,
+   "cam": true
+  },
+  {
+   "vsn": "V042",
+   "lat": 44.046428,
+   "lon": -123.073625,
+   "address": "Cascade Hall, Earth Sciences Bldg, Eugene, OR 97401",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V043",
+   "lat": 41.718223,
+   "lon": -87.982475,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V044",
+   "lat": 41.718223,
+   "lon": -87.982475,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V045",
+   "lat": 63.875798,
+   "lon": -149.21335,
+   "address": "Mile 4 Stampede Rd, Healy, AK 99743",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V046",
+   "lat": 37.03337,
+   "lon": -119.26219,
+   "address": "4727 West Shaw Avenue, Fresno, CA 93722",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V047",
+   "lat": 40.177599,
+   "lon": -112.45245,
+   "address": "815 W Faust Crk Rd, Vernon, UT 84080",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V048",
+   "lat": 32.590694,
+   "lon": -106.84254,
+   "address": "Radium Springs, NM",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V049",
+   "lat": 38.248283,
+   "lon": -109.38827,
+   "address": "Mile Marker 100, HWY 191, Moab, UT 84532",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V050",
+   "lat": 40.461894,
+   "lon": -103.02929,
+   "address": "1666 Co Rd 59, Sterling, CO 80751",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V051",
+   "lat": 47.16165,
+   "lon": -99.10656,
+   "address": "Northwest Stutsman, ND",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V052",
+   "lat": 47.1282,
+   "lon": -99.241334,
+   "address": "5920 19th St SE, Woodworth, ND 58496",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V053",
+   "lat": 37.378314,
+   "lon": -80.524847,
+   "address": "240 Salt Pond Rd, Pembroke, VA 24136",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V054",
+   "lat": 46.23391,
+   "lon": -89.537254,
+   "address": "Marenisco Township, MI",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V055",
+   "lat": 17.96955,
+   "lon": -66.8687,
+   "address": "Guanica, PR 00653",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V056",
+   "lat": 18.021261,
+   "lon": -67.076889,
+   "address": "Palmarejo, Lajas, PR 00667",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "V057",
+   "lat": 29.689282,
+   "lon": -81.993431,
+   "address": "Banana, FL 32640",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "W015",
+   "lat": 41.736736,
+   "lon": -87.604696,
+   "address": "E. 87th & S. Cottage Grove, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W016",
+   "lat": 30.314398,
+   "lon": -97.899523,
+   "address": "Austin, TX",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W019",
+   "lat": 44.048930498,
+   "lon": -123.069530742,
+   "address": "1264 Franklin Blvd, Eugene, OR",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W01A",
+   "lat": 37.87568296320878,
+   "lon": -122.25030483738881,
+   "address": "LBNL, CA",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W01B",
+   "lat": 40.35067872123443,
+   "lon": -90.08610984360944,
+   "address": "Emiquon Nature Preserve, 10563-11491 N State Rte 97, Lewistown, IL 61542",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W01C",
+   "lat": 41.88452644522827,
+   "lon": -87.62460057836556,
+   "address": "Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W020",
+   "lat": 40.36136989389937,
+   "lon": -90.09404779520423,
+   "address": "Emiquon Nature Preserve, 10563-11491 N State Rte 97, Lewistown, IL 61542",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W021",
+   "lat": 40.573835425160716,
+   "lon": -105.08236757615637,
+   "address": "Fort Collins, CO 80523",
+   "mic": false,
+   "cam": true
+  },
+  {
+   "vsn": "W023",
+   "lat": 41.717805,
+   "lon": -87.978575,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W024",
+   "lat": 41.879656,
+   "lon": -87.701234,
+   "address": "S. Sacramento & 5th Avenue, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W026",
+   "lat": 41.885712,
+   "lon": -87.629559,
+   "address": "Lake & N. Dearborn, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W027",
+   "lat": 41.71845439954644,
+   "lon": -87.98398166798243,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W028",
+   "lat": 41.931805604,
+   "lon": -88.765445766,
+   "address": "100 Normal Rd, DeKalb, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W029",
+   "lat": 40.764015,
+   "lon": -111.82259,
+   "address": "Utah Natural History Museum 301 Wakara Way Salt Lake City, UT 84108",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W02A",
+   "lat": 41.718392674930385,
+   "lon": -87.98239519902583,
+   "address": "9700 South Cass Avenue, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "W02B",
+   "lat": 33.581841,
+   "lon": -101.88091,
+   "address": "3003 15th St, Lubbock, TX",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W02C",
+   "lat": 41.878247,
+   "lon": -87.627583,
+   "address": "Jackson & S. State, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W030",
+   "lat": 41.718119,
+   "lon": -87.982311,
+   "address": "Building 240, Argonne National Laboratory 9700 S. Cass Ave, Argonne Ct, Lemont, IL 60439",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W039",
+   "lat": 41.701689,
+   "lon": -87.995179,
+   "address": "9700 S Cass Ave, Lemont, IL 60439",
+   "mic": false,
+   "cam": false
+  },
+  {
+   "vsn": "W041",
+   "lat": 44.31511799963078,
+   "lon": -124.09662510808006,
+   "address": "Eugene, OR",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W045",
+   "lat": 40.766997241295016,
+   "lon": -111.88593686202763,
+   "address": "102 S 200 E, Salt Lake City, UT 84111",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W059",
+   "lat": 41.880798782501344,
+   "lon": -87.62787947725498,
+   "address": "TBD, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W05A",
+   "lat": 41.88918080948867,
+   "lon": -87.63241563638988,
+   "address": "TBD, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W05B",
+   "lat": 41.88676494472552,
+   "lon": -87.63095765266233,
+   "address": "TBD, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W05C",
+   "lat": 41.88312765231458,
+   "lon": -87.62932260591538,
+   "address": "TBD, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W05D",
+   "lat": 41.88455003362158,
+   "lon": -87.62797295963482,
+   "address": "TBD, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W05E",
+   "lat": 41.874100946,
+   "lon": -87.666453923,
+   "address": "1600 W Harrison St, Chicago, IL 60607",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W065",
+   "lat": 41.997176399,
+   "lon": -87.765821455,
+   "address": "5504 W Devon Ave, Chicago, IL 60646",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W067",
+   "lat": 42.273915418,
+   "lon": -123.63556884,
+   "address": "Selma, OR",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W069",
+   "lat": 20.890681042619217,
+   "lon": -156.65474422852128,
+   "address": "980 Lahainaluna Rd, Lahaina, HI 96761",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W06A",
+   "lat": 46.02997192388364,
+   "lon": -89.96961797681634,
+   "address": "Lac du Flambeau, WI",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W06B",
+   "lat": 57.33461488930827,
+   "lon": -5.665967533656625,
+   "address": "Plockton IV52 8TU, UK",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W06C",
+   "lat": 43.940154336,
+   "lon": -110.644136675,
+   "address": "Amk Ranch Rd, Moran, WY 83013",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W06D",
+   "lat": 41.60815859930166,
+   "lon": -87.70464536560576,
+   "address": "TNC Paintbrush Prairie 3454 W 155th St, Markham, IL 60428",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W06E",
+   "lat": 41.98500232,
+   "lon": -87.787872713,
+   "address": "5659 N Nagle Ave, Chicago, IL 60646",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W06F",
+   "lat": 44.598866276,
+   "lon": -111.812532858,
+   "address": "27700 South Valley Road Lakeview, MT 59739",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W070",
+   "lat": 33.30794934834394,
+   "lon": -116.8550537112731,
+   "address": "21941 Crestline Rd, Birch Hill on Palomar Mountain, CA 92060",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W071",
+   "lat": 21.41130215,
+   "lon": -157.7842519,
+   "address": "45 Kulauli St, Kaneohe, HI 96744",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W072",
+   "lat": 41.86673872385933,
+   "lon": -87.6665645143102,
+   "address": "TBD, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W073",
+   "lat": 41.88315300556273,
+   "lon": -87.62765984093555,
+   "address": "TBD, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W074",
+   "lat": 41.88929390665504,
+   "lon": -87.63122288140154,
+   "address": "TBD, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W075",
+   "lat": 41.88317977577514,
+   "lon": -87.63373999393055,
+   "address": "TBD, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W076",
+   "lat": 41.88461142499264,
+   "lon": -87.62937943517525,
+   "address": "TBD, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W077",
+   "lat": 41.88675294995436,
+   "lon": -87.63235008038846,
+   "address": "TBD, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W079",
+   "lat": 41.884449,
+   "lon": -87.647443,
+   "address": "N. Halsted & W. Randolph, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W07A",
+   "lat": 41.884519582456015,
+   "lon": -87.63675645813265,
+   "address": "N. Upper Wacker & W. Randolph, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W07B",
+   "lat": 41.88462057460574,
+   "lon": -87.62464411996037,
+   "address": "N. Michigan & E. Randolph, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W07D",
+   "lat": 41.83103500475166,
+   "lon": -87.6171914776757,
+   "address": "E. 35th & S. Martin Luther King, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W07E",
+   "lat": 41.7947,
+   "lon": -87.615865,
+   "address": "E. Garfield & S. Marin Luther King, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W07F",
+   "lat": 41.77938987503756,
+   "lon": -87.6644445475023,
+   "address": "W. 63rd & S. Ashland, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W080",
+   "lat": 41.744007827818784,
+   "lon": -87.60517085556451,
+   "address": "E. 83rd & S. Cottage Grove, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W081",
+   "lat": 41.74378791210756,
+   "lon": -87.6196294767371,
+   "address": "E. 83rd St. & Indiana Ave, Chicago, IL",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W082",
+   "lat": 41.706789505708365,
+   "lon": -87.65601478476233,
+   "address": "W 103rd St & S Vincennes Ave",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W083",
+   "lat": 46.619410237,
+   "lon": -90.703833478,
+   "address": "72682 Maple St, New Odanah, WI",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W084",
+   "lat": 44.598868494,
+   "lon": -111.812547066,
+   "address": "27700 South Valley Road Lakeview, MT 59739",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W085",
+   "lat": 47.92189466108028,
+   "lon": -97.08656737454763,
+   "address": "WWC7+Q93, Grand Forks, ND",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W08B",
+   "lat": 41.822951506,
+   "lon": -87.609693291,
+   "address": "700 E Oakwood Blvd, Chicago IL, 60653",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W08C",
+   "lat": 46.233907074,
+   "lon": -89.537247559,
+   "address": "Marenisco Township, MI",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W08D",
+   "lat": 41.98053299237866,
+   "lon": -87.71662374616044,
+   "address": "Bernard J. Brommel Hall, 5500 N St Louis Ave, Chicago, IL 60625",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W08E",
+   "lat": 41.719837344,
+   "lon": -87.61285851,
+   "address": "9501 S King Dr, Chicago, IL 60628",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W095",
+   "lat": 41.884884633495616,
+   "lon": -87.97871741056426,
+   "address": "305 Ardmore Ave, Villa Park, IL 60181",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W096",
+   "lat": 41.868532807,
+   "lon": -87.64589484,
+   "address": "1020 S Union Ave, Chicago, IL 60607",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W097",
+   "lat": 19.415203653,
+   "lon": -155.238319893,
+   "address": "Hawaii Volcanoes National Park, Pahoa, HI 96778",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W099",
+   "lat": 42.051407767,
+   "lon": -87.677659396,
+   "address": "5500 N St Louis Ave, Chicago, IL 60625",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W0A4",
+   "lat": 41.701597727,
+   "lon": -87.995233141,
+   "address": "ATMOS, 9700 South Cass Ave, Lemont, IL 60439",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W0AA",
+   "lat": 45.95503902553785,
+   "lon": -91.3649859195928,
+   "address": "13457W Froemel Rd, Hayward, WI 54843",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W0AE",
+   "lat": 41.701339,
+   "lon": -87.995624,
+   "address": "9700 South Cass Ave, Lemont, IL 60439",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W0AF",
+   "lat": 41.701339,
+   "lon": -87.995624,
+   "address": "9700 South Cass Ave, Lemont, IL 60439",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W0B1",
+   "lat": 41.70136454,
+   "lon": -87.995480081,
+   "address": "Argonne 9700 South Cass Ave, Lemont, IL 60439",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W0B2",
+   "lat": 41.701339,
+   "lon": -87.995624,
+   "address": "Argonne 9700 South Cass Ave, Lemont, IL 60439",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W0B3",
+   "lat": 41.701339,
+   "lon": -87.995624,
+   "address": "Argonne 9700 South Cass Ave, Lemont, IL 60439",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W0B4",
+   "lat": 41.701339,
+   "lon": -87.995624,
+   "address": "9700 South Cass Ave, Lemont, IL 60439",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W0B5",
+   "lat": 41.701339,
+   "lon": -87.995624,
+   "address": "9700 South Cass Ave, Lemont, IL 60439",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W0B6",
+   "lat": 41.701339,
+   "lon": -87.995624,
+   "address": "9700 South Cass Ave, Lemont, IL 60439",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W0B7",
+   "lat": 41.701339,
+   "lon": -87.995624,
+   "address": "9700 South Cass Ave, Lemont, IL 60439",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W0B8",
+   "lat": 41.701339,
+   "lon": -87.995624,
+   "address": "Argonne 9700 South Cass Ave, Lemont, IL 60439",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "W0BA",
+   "lat": 41.701339,
+   "lon": -87.995624,
+   "address": "Argonne 9700 S Cass Ave, Lemont, IL 60439",
+   "mic": true,
+   "cam": true
+  },
+  {
+   "vsn": "X001",
+   "lat": 40.815536,
+   "lon": -104.74559,
+   "address": "Weld County, CO",
+   "mic": false,
+   "cam": false
+  }
+ ]
+}

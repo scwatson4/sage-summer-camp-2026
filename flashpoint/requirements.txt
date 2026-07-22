@@ -1,3 +1,10 @@
 sage-data-client
 numpy
 pandas
+# dashboard (dashboard/app.py)
+streamlit
+soundfile
+scipy
+pillow
+matplotlib
+requests

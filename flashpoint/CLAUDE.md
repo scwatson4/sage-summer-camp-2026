@@ -49,7 +49,21 @@ python scripts/tdoa_sim.py                # Monte Carlo feasibility sims (Argonn
 python scripts/wfigs_crossref.py          # lightning-fire × node cross-reference
 python scripts/check_case_archives.py     # what did W06C/W067 record during the fires
 SAGE_USER=scwatson SAGE_TOKEN=... python scripts/fetch_case_media.py   # M1 data pull
+streamlit run dashboard/app.py            # visualization dashboard (see dashboard/README.md)
 ```
+
+## Dashboard (dashboard/)
+
+Streamlit workbench for M1/M5: map of nodes + WFIGS fires, multi-node image
+comparison (A/B, blend, filmstrip, luminance flash candidates), synchronized
+image–audio–met timelines, clip inspector (waveform/spectrogram/playback,
+leading-edge onset), flash-to-bang range rings and multi-ring strike
+localization with uncertainty ellipse + GDOP. Case presets: Kitten Fire,
+Signal Flat, Selma bust (baked from live WFIGS into `dashboard/assets/`), plus
+a credential-free synthetic **demo storm** over the real Argonne geometry
+(replay-harness insurance, plan §F6). Media downloads use SAGE_USER/SAGE_TOKEN
+and cache under `data/`; listings/met are public. `dashboard/bake_assets.py`
+refreshes the baked assets.
 
 ## Runbook — where to run Claude Code (and how to set it up)
 

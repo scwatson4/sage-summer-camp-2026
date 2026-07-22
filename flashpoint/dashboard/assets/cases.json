@@ -1,0 +1,215 @@
+{
+ "generated": "2026-07-22T15:16:44+00:00",
+ "cases": [
+  {
+   "id": "kitten-fire",
+   "title": "Kitten Fire \u2014 Moran, WY (flagship)",
+   "vsn": "W06C",
+   "start": "2025-07-01T00:00:00Z",
+   "end": "2025-07-04T00:00:00Z",
+   "audio_task": "audio-sampler",
+   "image_tasks": [
+    "imagesampler-top",
+    "imagesampler-bottom",
+    "imagesampler-mobotix",
+    "imagesampler-hanwhaptz"
+   ],
+   "notes": "0.32-acre natural-cause fire discovered 2025-07-03 ~6 km from W06C (Grand Teton / AMK Ranch). The node captured 779 audio clips plus thermal/sky imagery across the storm window \u2014 the post-hoc thunder-detection flagship.",
+   "fires": [
+    {
+     "name": "Kitten",
+     "discovered": "2025-07-03T02:04:27+00:00",
+     "size_ac": 0.32,
+     "lat": 43.954193,
+     "lon": -110.575848,
+     "state": "US-WY",
+     "dist_km": 5.7,
+     "featured": true
+    }
+   ]
+  },
+  {
+   "id": "signal-flat",
+   "title": "Signal Flat \u2014 Moran, WY",
+   "vsn": "W06C",
+   "start": "2025-07-24T00:00:00Z",
+   "end": "2025-07-27T00:00:00Z",
+   "audio_task": "audio-sampler",
+   "image_tasks": [
+    "imagesampler-top",
+    "imagesampler-bottom",
+    "imagesampler-mobotix",
+    "imagesampler-hanwhaptz"
+   ],
+   "notes": "7.7-acre natural-cause fire discovered 2025-07-26, ~12 km from W06C \u2014 second event for the same node.",
+   "fires": [
+    {
+     "name": "Signal Flat",
+     "discovered": "2025-07-26T19:44:17+00:00",
+     "size_ac": 7.7,
+     "lat": 43.838327,
+     "lon": -110.584688,
+     "state": "US-WY",
+     "dist_km": 12.2,
+     "featured": true
+    }
+   ]
+  },
+  {
+   "id": "selma-bust",
+   "title": "Selma lightning bust \u2014 Siskiyou, OR",
+   "vsn": "W067",
+   "start": "2025-07-06T00:00:00Z",
+   "end": "2025-07-09T00:00:00Z",
+   "audio_task": null,
+   "image_tasks": [
+    "imagesampler-top",
+    "imagesampler-left",
+    "imagesampler-bottom"
+   ],
+   "notes": "Classic lightning-bust: many natural-cause fires discovered 2025-07-08 within ~35 km of W067. Hourly sky imagery + met records (incl. rain accumulation) \u2014 a camera+met study; no audio that week.",
+   "fires": [
+    {
+     "name": "N Fork Deer Creek",
+     "discovered": "2025-07-08T02:47:00+00:00",
+     "size_ac": 39.8,
+     "lat": 42.2735,
+     "lon": -123.46016667,
+     "state": "US-OR",
+     "dist_km": 14.4,
+     "featured": true
+    },
+    {
+     "name": "Bear Creek",
+     "discovered": "2025-07-08T02:47:00+00:00",
+     "size_ac": 0.75,
+     "lat": 42.20583333,
+     "lon": -123.47166667,
+     "state": "US-OR",
+     "dist_km": 15.5,
+     "featured": false
+    },
+    {
+     "name": "Ken Rose",
+     "discovered": "2025-07-08T02:47:00+00:00",
+     "size_ac": 0.2,
+     "lat": 42.115,
+     "lon": -123.63366667,
+     "state": "US-OR",
+     "dist_km": 17.6,
+     "featured": false
+    },
+    {
+     "name": "Greenview Rd 1245",
+     "discovered": "2025-07-08T02:47:00+00:00",
+     "size_ac": 0.01,
+     "lat": 42.0857816,
+     "lon": -123.5915457,
+     "state": "US-OR",
+     "dist_km": 21.1,
+     "featured": false
+    },
+    {
+     "name": "Cedar Flat",
+     "discovered": "2025-07-08T02:47:00+00:00",
+     "size_ac": 10.1,
+     "lat": 42.21403336,
+     "lon": -123.38685651,
+     "state": "US-OR",
+     "dist_km": 21.5,
+     "featured": true
+    },
+    {
+     "name": "Esterly Mine",
+     "discovered": "2025-07-08T02:47:00+00:00",
+     "size_ac": 7.18,
+     "lat": 42.07933333,
+     "lon": -123.63783333,
+     "state": "US-OR",
+     "dist_km": 21.5,
+     "featured": true
+    },
+    {
+     "name": "Little Elder Creek",
+     "discovered": "2025-07-08T02:47:00+00:00",
+     "size_ac": 0.2,
+     "lat": 42.07633333,
+     "lon": -123.60166667,
+     "state": "US-OR",
+     "dist_km": 22.0,
+     "featured": false
+    },
+    {
+     "name": "Holcomb Peak",
+     "discovered": "2025-07-08T02:47:00+00:00",
+     "size_ac": 35.4,
+     "lat": 42.18566667,
+     "lon": -123.39533333,
+     "state": "US-OR",
+     "dist_km": 22.1,
+     "featured": true
+    },
+    {
+     "name": "Munger",
+     "discovered": "2025-07-08T02:47:00+00:00",
+     "size_ac": 0.3,
+     "lat": 42.2135,
+     "lon": -123.356,
+     "state": "US-OR",
+     "dist_km": 24.0,
+     "featured": false
+    },
+    {
+     "name": "Leuizenger Creek",
+     "discovered": "2025-07-08T02:47:00+00:00",
+     "size_ac": 2.27,
+     "lat": 42.03766667,
+     "lon": -123.70616667,
+     "state": "US-OR",
+     "dist_km": 26.8,
+     "featured": false
+    },
+    {
+     "name": "Pickett Mtn",
+     "discovered": "2025-07-08T02:47:00+00:00",
+     "size_ac": 1.66,
+     "lat": 42.36566667,
+     "lon": -123.30905,
+     "state": "US-OR",
+     "dist_km": 28.7,
+     "featured": false
+    },
+    {
+     "name": "Buckskin",
+     "discovered": "2025-07-08T15:59:53+00:00",
+     "size_ac": 0.1,
+     "lat": 42.066217,
+     "lon": -123.8543,
+     "state": "US-OR",
+     "dist_km": 29.2,
+     "featured": false
+    },
+    {
+     "name": "Sugarloaf",
+     "discovered": "2025-07-08T18:37:52+00:00",
+     "size_ac": 0.25,
+     "lat": 42.119357,
+     "lon": -123.318379,
+     "state": "US-OR",
+     "dist_km": 31.2,
+     "featured": false
+    },
+    {
+     "name": "Lower",
+     "discovered": "2025-07-08T22:21:26+00:00",
+     "size_ac": 0.1,
+     "lat": 42.103333,
+     "lon": -123.288833,
+     "state": "US-OR",
+     "dist_km": 34.2,
+     "featured": false
+    }
+   ]
+  }
+ ]
+}
