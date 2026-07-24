@@ -1,8 +1,9 @@
 # Project Story: From One Camera Tunnel to a Volcano
 
 *Sage Summer Camp 2026 — Sammy Watson. A chronological record of the W0A4 camera work
-and the W097 PTZ investigation, compiled 2026-07-24. Times are local (HST) unless
-marked UTC; data timestamps from the Sage archive are UTC.*
+and the W097 PTZ investigation, compiled 2026-07-24, plus the parallel cloud-session
+software track (dashboard → hardening → the D1–2 detector). Times are local (HST)
+unless marked UTC; data timestamps from the Sage archive are UTC.*
 
 *FlashPoint relevance: W0A4 is the sanctioned PTZ/camera sandbox (access resolved
 here — CLAUDE.md's "SSH rejects scwatson's key" note is now stale), and the W097
@@ -125,6 +126,64 @@ reads a flat 12–13 °C across all 84,672 pixels — cold fog, nothing hot in v
 
 ---
 
+## The parallel track — cloud session: dashboard, hardening, D1–2 detector (Jul 22–24)
+
+While the camera work above ran on the laptop, a Claude Code cloud session carried
+the software track on branch `claude/lightning-wildfire-dashboard-qzn6pk`.
+
+### Tuesday, July 22 — dashboard day
+
+- **~3 PM — handoff lands in the camp repo.** The FlashPoint handoff zip became
+  `flashpoint/` inside `sage-summer-camp-2026` (plan, deck, feasibility scripts).
+- **~3–7 PM — the visualization dashboard** (`dashboard/`, Streamlit): node + fire
+  map (WFIGS queried live — Kitten, Signal Flat, and all four featured Selma-bust
+  fires located and baked into offline assets), A/B image comparison with per-node
+  flash-candidate luminance timelines, synchronized camera/audio/met tracks on one
+  UTC clock, a clip inspector (waveform/spectrogram/playback, leading-edge onset
+  picking), the flash-to-bang range engine, and multi-ring strike localization with
+  uncertainty ellipse + GDOP. A credential-free **synthetic demo storm over the real
+  Argonne-six geometry** exercises everything offline; its end-to-end check localized
+  a truth strike to **65 m** from four auto-picked thunder onsets.
+- **~7 PM — adversarial review, 11 confirmed findings fixed.** A five-lens review
+  (physics, Sage-API use, Streamlit semantics, secret hygiene, chart honesty) with
+  independent verification caught, among others: the portal token could have been
+  sent to any host named in a (publicly writable) upload record — now locked to
+  `storage.sagecontinuum.org`; the speed-of-sound temperature was averaging the
+  **in-enclosure bme280 (~46 °C) with ambient bme680 (~16 °C)** — verified live on
+  W06C, now bme680-only; and GDOP computed via pseudo-inverse reported *good*
+  geometry exactly when the ring geometry was degenerate — now an honest ∞ plus an
+  "under-constrained" warning. Two-ring/collinear mirror ambiguities are surfaced,
+  never hidden.
+- **~8 PM — handoff #2 merged** (Xweather helper with verified endpoints,
+  `.env.example`, external-asset verdicts), local work preserved by graft-and-diff.
+
+### Thursday, July 24 — M1 absorbed, then the detector that learns its lesson
+
+- **~4:30 PM UTC — M1-complete handoff merged** (STATUS.md, m1-results.md, evidence
+  imagery, granted-nodes CSV, kitten_screen/access_probe/ptz_control scripts, the
+  offline strike-replay `ui/index.html`, rebuilt deck). Verified nothing local lost.
+- **Sandbox data path confirmed:** direct basic-auth to Sage storage is
+  connection-reset from this cloud sandbox, but the mcp proxy `?token=` pattern
+  pulls real W06C FLAC in ~1.5 s — so the real archive was workable from the cloud.
+- **~5 PM UTC — `detectors/`: the D1–2 anchored, noise-adaptive thunder detector.**
+  Ground truth (955 dual-satellite GLM flashes + the 22 recovered arrivals) was
+  extracted from the replay UI into `detectors/data/kitten_glm.json`. The detector
+  whitens against a per-frequency stationary noise floor (rain absorbs itself),
+  opens sensitive listening windows after known flash times, and gates anchored
+  arrivals on **range consistency** — the formalized version of M1's falsification
+  logic. Re-validated on the actual ignition-storm archive: **20/22 arrivals
+  recovered (±4 s), median implied-range error 0.6–0.8 km**; a rain-shower control
+  window measured **~36 standalone false alarms/hour** — the number that cements the
+  nominate-only contract for unanchored audio. 72 additional range-consistent
+  candidates now await NLDN/STRIKEnet arbitration. Synthetic suite: thunder
+  recovered *under* rain via anchoring; rain rejected standalone **and** anchored
+  (range-inconsistent); wind rejected; onset error ~0.2 s.
+
+The through-line of both tracks is the same finding, twice over: **hardware watches
+nothing unless something aims it** (cabin wall; five motionless months at a volcano),
+and **audio claims nothing unless something anchors it** (0/17 falsified → 20/22
+recovered). The M4 storm-mode controller is the answer to both.
+
 ## Where things stand
 
 - **W0A4 tunnel**: working (Windows OpenSSH, local 8081/8554); cameras are fixed
@@ -138,6 +197,17 @@ reads a flat 12–13 °C across all 84,672 pixels — cold fog, nothing hot in v
 - Downloaded imagery (PTZ sequence, detection frames, Mobotix thermal pairs) lives in
   [`w097-imagery/`](w097-imagery/README.md) with per-image notes on why it was
   collected, what it revealed, and how it feeds FlashPoint.
+- **Software track**: the dashboard (`dashboard/`, review-hardened) and the D1–2
+  anchored thunder detector (`detectors/`, 20/22 on the real ignition storm) are on
+  the branch and pushed. Detector code is deliberately numpy/scipy/soundfile-only so
+  it ports into an ECR plugin unchanged — **next stop is M2: package it as a Sage
+  app, `pluginctl` it on H03E, then schedule on granted nodes** (the W096↔W09E↔W08B
+  city triangle and the Emiquon twins W01B+W020 are the granted-set arrays).
+- **Tier-3 chassis identified:** `ptzapp-yolo` (Dematties/Lebiedzinski, ECR) is the
+  fleet's existing YOLO/Florence-2-guided PTZ plugin — fork target for strike-sector
+  re-aim + SmokeyNet dwell instead of uniform sweeps (see External assets in
+  CLAUDE.md and the Day-1 census note that PTZ on Sage is driven by exactly these
+  scheduled plugins).
 
 ## Reusable facts learned along the way
 
@@ -150,5 +220,11 @@ reads a flat 12–13 °C across all 84,672 pixels — cold fog, nothing hot in v
 - Data queries: POST `https://data.sagecontinuum.org/api/v1/query` with
   `{"start":"-30d","filter":{"vsn":"W097","task":"..."}}`.
 - Storage downloads: `curl -L -u '<user>:<token>'` on the upload URL (expect a 302).
+  From cloud sandboxes that reset/strip auth to storage, the mcp proxy pattern works
+  instead: `mcp.sagecontinuum.org/proxy/image?url=<storage-url>&token=<user>:<tok>`
+  (518/518 in the M1 run; 49/49 + 27/27 again for the detector eval).
+- Two temperature sensors publish `env.temperature` per node: bme280 is *inside the
+  enclosure* (runs ~30 °C hot); use **bme680** for anything physical (speed of
+  sound, fire weather). Verified live on W06C: 46.4 °C vs 15.9 °C same hour.
 - Windows gotchas: python writes `\r\n` that breaks curl URL lists (strip with
   `tr -d '\r'`); Git Bash ssh ≠ Windows OpenSSH agent.
