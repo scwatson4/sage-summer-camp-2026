@@ -206,7 +206,17 @@ Guardrails throughout: storage/thermal budgets, max continuous-capture hours, au
 
 ## F4. The wildfire loop — from strike to notification
 
-Lightning starts a large share of Western burned area, and **holdover fires can smolder for days before flaring** — precisely the window the aftermath tier watches. Per localized strike: compute a simple ignition-risk score = dry-lightning flag (strike with <2.5 mm rain at the nearest node — read the node's own rain gauge!) × fuel dryness (days-since-rain locally, or public NFDRS/ERC indices) × land cover. High scores generate a **notification card** — map with uncertainty ellipse, time, dry-lightning flag, follow-up smoke-check schedule — to a Slack/webhook channel as the responder-notification demo. Same responsible posture as Part I: human review, no auto-dispatch claims; real agency integration is future work, and framing it as *ignition watch for faster response* keeps the story about aid.
+Lightning starts a large share of Western burned area, and **holdover fires can smolder for days before flaring** — precisely the window the aftermath tier watches. Per localized strike: compute a simple ignition-risk score = dry-lightning flag (strike with <2.5 mm rain at the nearest node — read the node's own rain gauge!) × fuel dryness (days-since-rain locally, or public NFDRS/ERC indices) × land cover.
+
+**The full ignition-risk feature stack** (verified 2026-07-23: no soil/leaf/fuel-moisture sensor publishes anywhere on the fleet, so moisture enters as computed proxies + public feeds):
+
+*Computed on-node from met data the nodes already publish:* dry-lightning flag (rain ±30 min of strike); days since wetting rain (>2.5 mm); **VPD** (vapor pressure deficit from temp+RH — a first-rank fire-weather variable); **estimated 10-hr dead-fuel moisture** (equilibrium-moisture approximation from temp/RH — the classic "is fine fuel receptive?" number); **KBDI drought index** (daily running calc from max temp + precip; the archives provide the spin-up history); wind speed at/after strike (smolder→flame transition and spread); 3-day minimum RH.
+
+*Public feeds sampled at the strike point:* **NASA SMAP satellite soil moisture** (the direct answer to "how wet is the ground," ~9 km grid, free); NFDRS/**WFAS gridded ERC** and 100-hr/1000-hr fuel moisture maps; **US Drought Monitor** category; active NWS Red Flag Warnings (already wired via api.weather.gov for storm-mode).
+
+*Stretch (already planned):* fuel type via BioCLIP land-cover zero-shot; strike polarity via SDR.
+
+Model shape: with essentially zero labeled ignition outcomes, do NOT train a black box — use a transparent weighted score (or literature-weighted logistic), with every factor's value and source shown on the alert card. **Validation hook: compute this exact feature vector retroactively for the Kitten Fire and Selma-bust strikes (§F9) — did the score run hot on the strikes that really started fires?** That back-test is the strongest single result available to this project. *Camp bonus:* Friday's LoRaWAN session + a ~$20 soil-moisture probe = contribute the fleet's first actual soil-moisture stream, closing the very gap this census found. High scores generate a **notification card** — map with uncertainty ellipse, time, dry-lightning flag, follow-up smoke-check schedule — to a Slack/webhook channel as the responder-notification demo. Same responsible posture as Part I: human review, no auto-dispatch claims; real agency integration is future work, and framing it as *ignition watch for faster response* keeps the story about aid.
 
 ## F5. Where the fleet can actually do this (verified census)
 
@@ -233,6 +243,8 @@ Strike location error and detection recall vs. GLM/Blitzortung matched events (i
 ## F8. Deliverables & stretch
 
 ECR apps: flash/thunder detector + the storm-mode controller (reusable far beyond lightning); hermes-profile: trigger policies + notification tools; writeup: F2 sim + F5 census give it the same verified-feasibility spine as Part I. Stretch: infrasound (thunder's infrasonic component carries much farther — pairs with Friday hardware), Mobotix thermal difference imaging on strike sectors, and the Hawaii wind-trigger variant wired to HCDP/mesonet data — Sammy's natural take-home.
+
+**Stretch upgrade — SDR as the third modality (RF spectrum).** Sage already prototyped a [weatherproof SDR lightning detector](https://sagecontinuum.org/science/recent/lightning-detector) for Waggle nodes: lightning's electromagnetic pulse (sferic) is a light-speed, all-weather, day/night signal in the VLF/LF radio spectrum. If the SDR box (or a ~$35 RTL-SDR) is available at camp: (1) **RF-to-bang** replaces flash-to-bang as the per-node self-clocked time-zero — zero-sync ranging that works at noon and through cloud, erasing F1's night-strong asymmetry; (2) RF waveform polarity flags **positive CG strikes** (<5% of strikes, ~10× charge, disproportionately fire-igniting) → a polarity term in the F4 ignition-risk score; (3) their stated 10 MB/s batch-capture problem is precisely what the F3 storm-mode controller solves — a natural collaboration with that project's authors (find them day one). Multi-node RF TOA localization stays out of scope (needs GPS-disciplined µs clocks; 1 µs = 300 m at light speed); acoustic TDOA remains the localization workhorse. Fusion summary: **RF says "now" and "what kind," the camera confirms and bears at night, the mic says "how far," the array says "where."**
 
 ## F9. Verified retrospective case studies — real lightning fires next to recording nodes
 
