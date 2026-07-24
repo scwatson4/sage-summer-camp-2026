@@ -43,6 +43,11 @@ produce human-reviewed responder notifications. Sibling project EchoGuard shares
 - **D1–2:** flash detector (ring-buffer luminance) + thunder onset (leading-edge; NOISE-ADAPTIVE —
   rain masking is now a proven failure mode; consider spectral-whitening or GLM/Xweather-anchored
   listening windows) + per-node RF/flash-to-bang range engine.
+  - *2026-07-24: thunder side LANDED (`detectors/`) — spectral-whitened noise-adaptive
+    detector with GLM/Xweather-anchored listening windows and range-consistency gating.
+    Re-validated on the real ignition storm: 20/22 anchored arrivals recovered
+    (median range err <1 km), rain-control standalone FA ~36/h documented → the
+    nominate-only contract stands. See `detectors/README.md`. Flash detector next.*
 - **D2–3:** storm-mode controller (NWS outlook → Xweather stormcells/local sensors arm → continuous
   capture → 72 h+ holdover watch with PTZ re-aim; the cabin-wall frame is the motivation slide).
 - **D3–4:** multi-node fusion + GDOP-gated live strike map (ui/ prompt exists); Blitzortung replay
