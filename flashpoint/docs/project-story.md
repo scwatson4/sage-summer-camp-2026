@@ -178,6 +178,16 @@ the software track on branch `claude/lightning-wildfire-dashboard-qzn6pk`.
   candidates now await NLDN/STRIKEnet arbitration. Synthetic suite: thunder
   recovered *under* rain via anchoring; rain rejected standalone **and** anchored
   (range-inconsistent); wind rejected; onset error ~0.2 s.
+- **Evening — Vaisala NLDN research-use request SUBMITTED.** The application the
+  plan said to file early went in: 250-word abstract (framing NLDN strictly as
+  reference truth for validating our acoustic ranging — the policy restricts
+  network intercomparisons), three bounded windows totaling ~65,000 km² / 81 days —
+  Grand Teton Jun 25–Aug 1 2025 (Kitten + Signal Flat + holdover scan, arbitration
+  of the 22 arrivals + 72 candidates), SW Oregon Jul 1–14 2025 (Selma bust
+  risk-score back-test), Chicagoland Jun–Aug 2026 (live array validation). Full
+  package archived in [`nldn-research-request.md`](nldn-research-request.md);
+  Vaisala's stated review turnaround is ~2 weeks. STRIKEnet single-event report
+  (W06C, Jul 2–3 2025) remains the fast paid fallback for the camp deadline.
 
 The through-line of both tracks is the same finding, twice over: **hardware watches
 nothing unless something aims it** (cabin wall; five motionless months at a volcano),
@@ -208,6 +218,11 @@ recovered). The M4 storm-mode controller is the answer to both.
   re-aim + SmokeyNet dwell instead of uniform sweeps (see External assets in
   CLAUDE.md and the Day-1 census note that PTZ on Sage is driven by exactly these
   scheduled plugins).
+- **NLDN ground truth: application in.** Vaisala research-use request submitted
+  2026-07-24 (three case windows; package + submission notes in
+  [`nldn-research-request.md`](nldn-research-request.md)). Expected review ~2 weeks
+  — data would land right as the 22+72 arrival arbitration becomes the headline
+  analysis.
 
 ## Reusable facts learned along the way
 

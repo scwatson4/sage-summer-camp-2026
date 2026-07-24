@@ -59,5 +59,7 @@ produce human-reviewed responder notifications. Sibling project EchoGuard shares
 ## Open science threads (post-camp / HCDP era)
 
 Neural audio classifier (characterize the 17 false positives + detect rain-masked thunder);
-NLDN/STRIKEnet match of the 22 arrivals; Selma imagery review; wind-trigger Hawaii variant;
-Vaisala research-data request (submitted?); SDR polarity classification; LoRaWAN soil probe.
+NLDN/STRIKEnet match of the 22 arrivals (now 22 + 72 candidates from the D1-2 detector);
+Selma imagery review; wind-trigger Hawaii variant; Vaisala research-data request —
+**SUBMITTED 2026-07-24** (three case windows, ~65k km²; package in
+docs/nldn-research-request.md; ~2-week review); SDR polarity classification; LoRaWAN soil probe.
