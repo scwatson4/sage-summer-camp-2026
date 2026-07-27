@@ -101,12 +101,18 @@ def emit(strikes_path, use_slack):
 def main():
     ap = argparse.ArgumentParser(prog="risk")
     sub = ap.add_subparsers(dest="cmd", required=True)
+    sub.add_parser("listen")
     d = sub.add_parser("demo")
     d.add_argument("--slack", action="store_true")
     p = sub.add_parser("post")
     p.add_argument("file")
     p.add_argument("--slack", action="store_true")
     args = ap.parse_args()
+
+    if args.cmd == "listen":
+        from risk.slack_socket import start
+        start()
+        return
 
     if args.cmd == "demo":
         path = ROOT / "fusion" / "out" / "strikes.json"

@@ -25,7 +25,8 @@ import urllib.request
 
 def build_card(strike: dict, risk: dict, watch: dict | None = None,
                evidence: list[dict] | None = None, provenance: str = "unknown",
-               corroboration: list[str] | None = None):
+               corroboration: list[str] | None = None,
+               conditions: dict | None = None, scene_read: str = ""):
     """strike: fusion Strike.to_dict(); risk: score.score() output;
     watch: {revisit_min, hours}; evidence: [{sector, raw, annotated, note}].
 
@@ -68,6 +69,8 @@ def build_card(strike: dict, risk: dict, watch: dict | None = None,
         },
         "watch": watch or {},
         "evidence": evidence or [],
+        "conditions": conditions or {},
+        "scene_read": scene_read,
         "posture": "human review only — no automated dispatch",
     }
 
@@ -103,8 +106,23 @@ def render_markdown(card):
         lines.append(f"- smoke watch: every {card['watch'].get('revisit_min')} "
                      f"min for {card['watch'].get('hours')} h")
     for ev in card["evidence"]:
-        lines.append(f"- evidence sector {ev.get('sector')}: raw {ev.get('raw')} "
-                     f"| annotated {ev.get('annotated')} {ev.get('note', '')}")
+        raws = ev.get("raw") or []
+        anns = ev.get("annotated") or []
+        raws = raws if isinstance(raws, list) else [raws]
+        anns = anns if isinstance(anns, list) else [anns]
+        bits = [f"{len(raws)} raw"]
+        if anns:
+            bits.append(f"{len(anns)} annotated")
+        if ev.get("composite"):
+            bits.append("before/after composite")
+        lines.append(f"- evidence, sector {ev.get('sector')}°: "
+                     + ", ".join(bits)
+                     + (f" — {ev['note']}" if ev.get("note") else ""))
+    if card.get("conditions"):
+        lines.append("- conditions at strike: " + ", ".join(
+            f"{k} {v}" for k, v in card["conditions"].items()))
+    if card.get("scene_read"):
+        lines.append(f"- scene read: _{card['scene_read']}_")
     lines.append(f"_{card['posture']}_")
     return "\n".join(lines)
 
