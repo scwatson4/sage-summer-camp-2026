@@ -68,6 +68,29 @@ def main():
                 "conditions at strike", "scene read", "DEMO"):
         check(f"card renders '{tok}'", tok in body)
 
+    # 3b. glanceable summary vs full detail (the alert must not be a wall)
+    from risk.card import detail_markdown, summary_line
+    summ = summary_line(card)
+    detail = detail_markdown(card)
+    check("summary is one short line",
+          "\n" not in summ and len(summ) < 120, f"{len(summ)} chars")
+    check("summary carries score/dry/accuracy/nodes",
+          all(t in summ for t in ("83", "DRY", "nodes")), summ)
+    check("summary omits raw coordinates",
+          "41.7" not in summ and "GDOP" not in summ)
+    check("detail carries the audit trail",
+          all(t in detail for t in ("position", "per-node ranges", "score = ",
+                                    "corroboration", "conditions")))
+    check("detail is longer than summary", len(detail) > 3 * len(summ))
+
+    # 3c. contact sheet (the closest thing to a carousel Slack allows)
+    strip = pack.get("strip")
+    check("evidence strip built", strip and pathlib.Path(strip).exists())
+    if strip:
+        w = Image.open(strip).width
+        check("strip tiles multiple frames", w > Image.open(raws[0]).width,
+              f"{w}px wide")
+
     # 4. review buttons
     blocks = review_blocks("S2", "live")
     ids = [e["action_id"] for e in blocks[0]["elements"]]
