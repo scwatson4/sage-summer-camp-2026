@@ -85,7 +85,9 @@ def emit(strikes_path, use_slack):
                          "fuel": "default 0.5",
                          "thunder": f"{s['n_nodes']} nodes fused"})
         risk = score(factors, strike_present=True)
-        card = build_card(s, risk, watch={"revisit_min": 20, "hours": 72})
+        is_demo = "demo" in payload.get("generated_from", "")
+        card = build_card(s, risk, watch={"revisit_min": 20, "hours": 72},
+                          provenance="demo" if is_demo else "live")
         ok, _ = send_slack(card, webhook_url=webhook or None)
         sent += bool(ok)
         print()
