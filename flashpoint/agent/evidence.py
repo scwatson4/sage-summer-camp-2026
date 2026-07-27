@@ -145,10 +145,17 @@ def evidence_pack(sector, raw_frames, detections=None, tile_probs=None,
     for i, raw in enumerate(raw_frames):
         stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%H:%M:%SZ")
         title = f"sector {sector}° · frame {i + 1}/{len(raw_frames)} · {stamp}"
+        # derived files ALWAYS go to outdir — never beside the source frames,
+        # or generated overlays pollute curated imagery folders
+        stem = pathlib.Path(raw).stem
         if tile_probs is not None:
-            annotated.append(annotate_tiles(raw, tile_probs, title=title))
+            annotated.append(annotate_tiles(
+                raw, tile_probs, out_path=outdir / f"{stem}-tiles.jpg",
+                title=title))
         elif detections:
-            annotated.append(annotate_boxes(raw, detections, title=title))
+            annotated.append(annotate_boxes(
+                raw, detections, out_path=outdir / f"{stem}-annotated.jpg",
+                title=title))
     composite = None
     if len(raw_frames) >= 2:
         composite = before_after(
