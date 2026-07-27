@@ -127,6 +127,51 @@ def render_markdown(card):
     return "\n".join(lines)
 
 
+def summary_line(card):
+    """One glanceable line: the decision-relevant facts, nothing else."""
+    s = card["strike"]
+    dry = "DRY" if card["dry_lightning"] else "wet"
+    acc = (f"±{s['ellipse_m'][0]:.0f} m" if s.get("ellipse_m")
+           and s["ellipse_m"][0] else "range-only")
+    corr = card.get("corroboration") or []
+    conf = f"{len(corr)} external confirm" if corr else "unconfirmed"
+    return (f"*{card['score']['total']:.0f}/100* · {dry} lightning · "
+            f"{acc} · {s['n_nodes']} nodes · {conf}")
+
+
+def detail_markdown(card):
+    """The full forensic breakdown — everything a reviewer needs to AUDIT the
+    call, deliberately kept OFF the alert card and posted in-thread instead.
+    An alert should be glanceable; the evidence trail should be complete.
+    Both matter, but not in the same block."""
+    s, sc = card["strike"], card["score"]
+    lines = ["*full detail*",
+             f"• position {s['lat']:.5f}, {s['lon']:.5f} — 1σ ellipse "
+             f"{s['ellipse_m'][0]:.0f}×{s['ellipse_m'][1]:.0f} m, "
+             f"GDOP {s['gdop']:.1f}, quality {s['quality']}",
+             "• per-node ranges: " + ", ".join(
+                 f"{v} {r:.2f} km" for v, r in s["ranges_km"].items()),
+             "• score = " + " + ".join(f"{k} {v:.0f}"
+                                       for k, v in sc["breakdown"].items())]
+    for name, (val, src) in sc["inputs"].items():
+        lines.append(f"     – {name}: {val} _({src})_")
+    if card.get("conditions"):
+        lines.append("• conditions: " + ", ".join(
+            f"{k} {v}" for k, v in card["conditions"].items()))
+    corr = card.get("corroboration") or []
+    lines.append("• corroboration: " + ("; ".join(corr) if corr else
+                 "*none* — single-modality only (M1: 17/17 audio-only "
+                 "candidates falsified by satellite)"))
+    if card.get("watch"):
+        lines.append(f"• watch: every {card['watch'].get('revisit_min')} min "
+                     f"for {card['watch'].get('hours')} h")
+    for ev in card.get("evidence") or []:
+        lines.append(f"• evidence sector {ev.get('sector')}°: "
+                     f"{len(ev.get('raw') or [])} raw frames retained "
+                     "unmodified; overlays on derived copies")
+    return "\n".join(lines)
+
+
 def _mrkdwn(md):
     """Markdown -> Slack mrkdwn. Slack has no '##' headers and renders '**'
     as literal asterisks, so headers become closed *bold* lines and bullets

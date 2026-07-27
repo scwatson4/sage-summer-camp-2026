@@ -132,6 +132,38 @@ def before_after(before_path, after_path, out_path, labels=("before", "after"),
     return str(out_path)
 
 
+def contact_sheet(paths, out_path, captions=None, cols=None, tile_w=640,
+                  title=None):
+    """Tile frames into ONE image — Slack has no carousel, so a single
+    embedded strip is how a reviewer sees the whole sequence at a glance
+    (full-resolution originals stay attached in-thread)."""
+    ims = [Image.open(p).convert("RGB") for p in paths]
+    if not ims:
+        return None
+    cols = cols or min(len(ims), 3)
+    rows = (len(ims) + cols - 1) // cols
+    tw = tile_w
+    th = int(tw * ims[0].height / ims[0].width)
+    pad, cap_h = 6, 22
+    head = 26 if title else 0
+    canvas = Image.new("RGB", (cols * tw + pad * (cols + 1),
+                               head + rows * (th + cap_h) + pad * (rows + 1)),
+                       INK)
+    d = ImageDraw.Draw(canvas)
+    if title:
+        _stamp(d, (8, 6), title)
+    for i, im in enumerate(ims):
+        r, c = divmod(i, cols)
+        x = pad + c * (tw + pad)
+        y = head + pad + r * (th + cap_h)
+        canvas.paste(im.resize((tw, th)), (x, y + cap_h))
+        cap = (captions[i] if captions and i < len(captions)
+               else pathlib.Path(paths[i]).name)
+        d.text((x + 2, y + 4), cap[:80], fill=PAPER)
+    canvas.save(out_path, quality=88)
+    return str(out_path)
+
+
 def evidence_pack(sector, raw_frames, detections=None, tile_probs=None,
                   gap_s=None, outdir=None):
     """Build the full evidence set for one watched sector.
@@ -161,6 +193,15 @@ def evidence_pack(sector, raw_frames, detections=None, tile_probs=None,
         composite = before_after(
             raw_frames[0], raw_frames[1],
             outdir / f"sector{int(sector)}-before-after.jpg", gap_s=gap_s)
+    # the single hero image for the alert card: sequence + detector view
+    sheet_src, caps = list(raw_frames), [f"raw t{i}" for i in range(len(raw_frames))]
+    if annotated:
+        sheet_src.append(annotated[0])
+        caps.append("detector view")
+    sheet = contact_sheet(
+        sheet_src, outdir / f"sector{int(sector)}-strip.jpg", captions=caps,
+        title=f"sector {sector}° · {len(raw_frames)} frames"
+              + (f" · {gap_s:.0f}s apart" if gap_s else ""))
     return {"sector": sector, "raw": [str(p) for p in raw_frames],
-            "annotated": annotated, "composite": composite,
+            "annotated": annotated, "composite": composite, "strip": sheet,
             "note": "raw frames unmodified; overlays on derived copies only"}
