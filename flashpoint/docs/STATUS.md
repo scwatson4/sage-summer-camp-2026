@@ -57,6 +57,15 @@ produce human-reviewed responder notifications. Sibling project EchoGuard shares
     Hermes/NIM glm-5.2 as default escalation).*
 - **D2–3:** storm-mode controller (NWS outlook → Xweather stormcells/local sensors arm → continuous
   capture → 72 h+ holdover watch with PTZ re-aim; the cabin-wall frame is the motivation slide).
+  - *2026-07-27: LANDED (`controller/`) — tiered state machine (IDLE→OUTLOOK→APPROACH→
+    STORM→AFTERMATH) with guardrails (daily capture budget, storm-hour cap, arm
+    timeouts, hysteresis), full audit trail, dry-run/agent-scheduler action sinks
+    (real job control stays gated on camp scheduling permissions), live feeds
+    (NWS free; Xweather polled only when outlook elevated — budget-aware), and a
+    replay harness on the REAL Kitten storm: **armed 145 min before the first
+    local flash**, watch scheduled, clean expiry. 19/19 tests. Also landed:
+    `plugin-thunder/` (M2 packaging, validated locally via PYWAGGLE_LOG_DIR) and
+    the smoke-watch skill exercised against the W097 sim panorama (3/3).*
 - **D3–4:** multi-node fusion + GDOP-gated live strike map (ui/ prompt exists); Blitzortung replay
   harness = no-storm demo insurance.
 - **D5:** ignition-risk card v0.1 (dry flag from node gauge + SMAP/POWER dryness + fuel type;
