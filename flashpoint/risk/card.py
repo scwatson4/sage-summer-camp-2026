@@ -19,6 +19,7 @@ from __future__ import annotations
 import datetime
 import json
 import os
+import re
 import urllib.request
 
 
@@ -83,13 +84,39 @@ def render_markdown(card):
     return "\n".join(lines)
 
 
+def _mrkdwn(md):
+    """Markdown -> Slack mrkdwn. Slack has no '##' headers and renders '**'
+    as literal asterisks, so headers become closed *bold* lines and bullets
+    become '•' (a naive replace leaves an unclosed '*' on the header)."""
+    out = []
+    for line in md.splitlines():
+        if line.startswith("## "):
+            line = "*" + line[3:].strip() + "*"
+        else:
+            line = re.sub(r"\*\*(.+?)\*\*", r"*\1*", line)
+            line = re.sub(r"^(\s*)- ", r"\1• ", line)
+        out.append(line)
+    return "\n".join(out)
+
+
 def to_slack_blocks(card):
-    md = render_markdown(card)
-    # Slack mrkdwn: demote the header line, keep the rest
-    body = md.replace("## ", "*").replace("**", "*")
-    return {"blocks": [
+    s = card["strike"]
+    header = card["title"]
+    body = _mrkdwn(render_markdown(card))
+    # strip the duplicated title line now that it lives in the header block
+    body = "\n".join(body.splitlines()[1:]).strip()
+    blocks = [
+        {"type": "header",
+         "text": {"type": "plain_text", "text": header[:150], "emoji": True}},
         {"type": "section", "text": {"type": "mrkdwn", "text": body[:2900]}},
-    ]}
+    ]
+    if s.get("lat") is not None:
+        blocks.append({"type": "context", "elements": [
+            {"type": "mrkdwn",
+             "text": (f"<https://www.google.com/maps?q={s['lat']:.5f},"
+                      f"{s['lon']:.5f}|open location in maps> · "
+                      f"quality *{s['quality']}* · {s['n_nodes']} nodes")}]})
+    return {"blocks": blocks}
 
 
 def send_slack(card, webhook_url=None, timeout=20):
