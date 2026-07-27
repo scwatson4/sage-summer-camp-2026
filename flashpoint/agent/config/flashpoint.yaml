@@ -1,0 +1,36 @@
+# FlashPoint overrides for sage-agent (PTZ_GRAPH_CONFIG points here).
+# Extends config/default.yaml upstream; only deltas below.
+
+gateway:
+  default_ptz_id: ptz_primary
+
+# Routine triage: local-first (offline-resilient; Gemma vision rides Ollama).
+model:
+  provider: ollama
+  model: gemma4:31b
+  base_url: http://127.0.0.1:11434
+  temperature: 0.2
+  max_tokens: 2048
+
+# Escalation rung — DEFAULT: Hermes' NIM endpoint (glm-5.2), reusing the key
+# already provisioned on H03E. Copy base_url/key from the Hermes config; keep
+# secrets in env (OPENAI_API_KEY / OPENAI_BASE_URL), never in this file.
+#   model:
+#     provider: openai_compat
+#     model: <glm-5.2 model id from Hermes config>
+#     base_url: ${OPENAI_BASE_URL}   # NIM endpoint
+# Fallbacks if NIM quota is tight or image-input escalation is needed:
+#   provider: openrouter  (OPENROUTER_API_KEY)  |  argo_proxy (on ANL network)
+
+vision:
+  gemma4_model: gemma4:e2b
+
+# FlashPoint skills live in this repo; sage-agent auto-discovers them.
+skills_dir: ../skills
+
+skills:
+  holdover_smoke_watch:
+    dwell_s: 180            # SmokeyNet wants ~60 s steady + frame-pair delta
+    revisit_min: 20         # scheduler cadence between patrols
+    watch_hours: 72         # aftermath watch lifetime per strike
+    frame_pair_gap_s: 120   # before/after separation within the dwell

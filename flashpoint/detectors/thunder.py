@@ -236,17 +236,20 @@ def detect(y, sr, anchor_times_s=None, cfg=Config(), wind_ms=None):
     events = _extract_events(t, exc, sub, mid, raw_sub, raw_mid, cfg)
     windows = anchor_windows(anchor_times_s, cfg) if anchor_times_s is not None else []
 
-    # Second, more sensitive extraction pass INSIDE anchor windows: a known
-    # flash time changes the prior, so thunder buried in rain that the
-    # standard threshold misses is worth surfacing there (the M1 recovery).
+    # Second, more sensitive extraction pass INSIDE anchor windows — but only
+    # windows whose anchor carries a known range (GLM/Xweather): the lower
+    # threshold is justified by the range-consistency gate that will prune
+    # what it surfaces. Time-only anchors (camera flash) get no sensitivity
+    # boost, because nothing downstream could veto the extra weak events.
     if windows:
-        in_any = lambda ts: any(w[0] <= ts <= w[1] for w in windows)  # noqa: E731
+        in_ranged = lambda ts: any(  # noqa: E731
+            w[0] <= ts <= w[1] and w[3] is not None for w in windows)
         sensitive = _extract_events(t, exc, sub, mid, raw_sub, raw_mid, cfg,
                                     on_db=cfg.anchored_on_db,
                                     off_db=cfg.anchored_off_db)
         known = [e.onset_s for e in events]
         for ev in sensitive:
-            if in_any(ev.onset_s) and not any(abs(ev.onset_s - k) < 1.0 for k in known):
+            if in_ranged(ev.onset_s) and not any(abs(ev.onset_s - k) < 1.0 for k in known):
                 events.append(ev)
         events.sort(key=lambda e: e.onset_s)
     c = 343.0 + 0.6 * (cfg.temp_c - 20.0)

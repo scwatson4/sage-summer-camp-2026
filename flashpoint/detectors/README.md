@@ -65,7 +65,8 @@ python detectors/eval_kitten.py --control                    # laptop/node
 - Flash detector on ring-buffer frames (the other D1–2 half) → camera anchors
   feed the same `detect(anchor_times_s=…)` API.
 - Feed anchored arrivals + implied ranges into the multi-node range engine
-  (dashboard `fp/geo.py` trilateration is the reference implementation).
+  (`flashpoint/dashboard/fp/geo.py` trilateration is the reference
+  implementation).
 - Neural classifier pass (open science thread) to characterize the rain
   false-alarm class the DSP gates can't separate.
 - Port into the `sound-event-detection` plugin fork for on-node M2 deployment.

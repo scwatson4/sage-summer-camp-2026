@@ -47,7 +47,14 @@ produce human-reviewed responder notifications. Sibling project EchoGuard shares
     detector with GLM/Xweather-anchored listening windows and range-consistency gating.
     Re-validated on the real ignition storm: 20/22 anchored arrivals recovered
     (median range err <1 km), rain-control standalone FA ~36/h documented → the
-    nominate-only contract stands. See `detectors/README.md`. Flash detector next.*
+    nominate-only contract stands. See `detectors/README.md`.*
+  - *2026-07-27: flash side LANDED too (`detectors/flash.py`) — scene-luminance
+    spike detection on sky-cam frames (photometer, no aiming), fisheye azimuth
+    sectors, honest sparse-cadence/daytime flags. Integration test closes D1-2:
+    camera anchors + thunder + cross-node consistency localize a demo strike to
+    **96 m with no satellite and no clock sync** (tests/test_integration.py).
+    Tier-3 incubation started: `agent/` (sage-agent skills + W097 sim panoramas,
+    Hermes/NIM glm-5.2 as default escalation).*
 - **D2–3:** storm-mode controller (NWS outlook → Xweather stormcells/local sensors arm → continuous
   capture → 72 h+ holdover watch with PTZ re-aim; the cabin-wall frame is the motivation slide).
 - **D3–4:** multi-node fusion + GDOP-gated live strike map (ui/ prompt exists); Blitzortung replay
