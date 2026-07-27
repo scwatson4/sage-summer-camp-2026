@@ -34,3 +34,14 @@ curl -s -H 'Content-Type: application/json' \
   https://data.sagecontinuum.org/api/v1/query \
   -d '{"start":"-10m","filter":{"task":"thunder","vsn":"H03E"}}'
 ```
+
+## H03E gotchas (validated 2026-07-27)
+
+- `pluginctl build` names the image after the DIRECTORY, not sage.yaml:
+  the local image is `localhost:5000/local/plugin-thunder`
+  (not `.../flashpoint-thunder`).
+- The dev-blade pods have no PulseAudio/mic stack — default (mic) mode dies in
+  `Microphone()`. Use the bundled real storm clip instead:
+  `sudo pluginctl run --name thunder localhost:5000/local/plugin-thunder -- --input example.flac`
+  (`example.flac` = W06C 2025-07-02 21:04 UT, publishes 2 standalone
+  candidates, scores 0.65/0.80 — verified end-to-end to the cloud query above).
