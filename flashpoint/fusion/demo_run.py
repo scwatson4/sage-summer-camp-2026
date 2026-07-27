@@ -96,8 +96,10 @@ def run(n_nodes=6, quiet=False):
         "truth": truth,
     }
     (OUT / "strikes.json").write_text(json.dumps(payload, indent=1))
-    from fusion.strikemap import render
-    render(payload, OUT / "fusion-map.html")
+    from fusion import strikemap, strikemap_leaflet
+    strikemap.render(payload, OUT / "fusion-map.html")            # offline SVG
+    strikemap_leaflet.render(payload, OUT / "fusion-map-leaflet.html")  # basemap
     if not quiet:
-        print(f"wrote {OUT / 'strikes.json'} and fusion-map.html")
+        print(f"wrote {OUT / 'strikes.json'}, fusion-map.html (offline SVG), "
+              "fusion-map-leaflet.html (Leaflet basemap)")
     return strikes, truth, errs
