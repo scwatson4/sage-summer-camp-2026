@@ -35,7 +35,7 @@ def main():
         sys.exit(0 if len(fixes) >= 3 else 1)
 
     from fusion.engine import FusionEngine
-    from fusion.strikemap import render
+    from fusion import strikemap, strikemap_leaflet
     nodes = {v: tuple(p) for v, p in
              json.loads(pathlib.Path(args.nodes).read_text()).items()}
     engine = FusionEngine(nodes)
@@ -57,7 +57,8 @@ def main():
                        "strikes": [s.to_dict() for s in strikes],
                        "truth": []}
             (out / "strikes.json").write_text(json.dumps(payload, indent=1))
-            render(payload, out / "fusion-map.html")
+            strikemap.render(payload, out / "fusion-map.html")
+            strikemap_leaflet.render(payload, out / "fusion-map-leaflet.html")
             print(f"[{time.strftime('%H:%M:%S')}] {seen} events -> "
                   f"{len(strikes)} strikes", file=sys.stderr)
         time.sleep(args.interval)
