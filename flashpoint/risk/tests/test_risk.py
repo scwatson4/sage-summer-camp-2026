@@ -59,9 +59,18 @@ def main():
     for token in ("DRY LIGHTNING", "GDOP", "score", "raw", "annotated",
                   "human review", "smoke watch"):
         check(f"card carries '{token}'", token in md)
-    blocks = to_slack_blocks(card)
-    check("slack payload valid-ish",
-          blocks["blocks"][0]["text"]["type"] == "mrkdwn")
+    blocks = to_slack_blocks(card)["blocks"]
+    check("slack header block", blocks[0]["type"] == "header"
+          and blocks[0]["text"]["type"] == "plain_text")
+    body = blocks[1]["text"]["text"]
+    check("slack body is mrkdwn", blocks[1]["text"]["type"] == "mrkdwn")
+    check("no unclosed/literal markdown left",
+          "##" not in body and "**" not in body and "- " not in body)
+    check("bold pairs balanced", body.count("*") % 2 == 0,
+          f"{body.count('*')} asterisks")
+    check("map context block", any(
+        b["type"] == "context" and "maps?q=" in b["elements"][0]["text"]
+        for b in blocks))
     sent, _ = send_slack(card)   # no webhook in env -> dry-run
     check("dry-run does not send", sent is False)
 
