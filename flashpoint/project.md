@@ -130,6 +130,82 @@ map for the fire-country case-study nodes.
 - **Live delivery validated:** risk cards posted to Slack with inline evidence
   strips and working review buttons; reviewer decisions logged end-to-end.
 
+## Case files — see and hear the evidence
+
+Two of the wildfire cases we uncovered, told through the node's own data.
+Audio ships in pairs, per the project's evidence rule: `-raw.flac` is the
+untouched sensor recording; `-listen.flac` is a labeled derived copy,
+gain-normalized so a human can hear it (thunder 10–20 km out arrives at
+~0.4 % of full scale — real but nearly silent).
+
+### Case 1 — Kitten Fire (Grand Teton WY): the node heard the ignition storm
+
+Fire discovered midday 2025-07-03, six kilometers from Sage node W06C. The
+node's microphone recorded straight through both suspect storms:
+
+![W06C heard the storms before the Kitten Fire](docs/m1-timeline.png)
+
+The audio-only classifier flagged 17 thunder events — and dual-satellite
+cross-validation falsified **all 17**. This was the strongest of them
+(low-band transient ratio 31, the burst at ~23 s), yet neither GOES-18 nor
+GOES-19 saw a single flash within 50 km:
+
+![The strongest audio-only candidate — falsified by two satellites](docs/kitten-thunder-1.png)
+
+🔊 Hear the false positive: [raw](docs/media/w06c-20250703-014604Z-falsified-raw.flac) ·
+[normalized +38 dB](docs/media/w06c-20250703-014604Z-falsified-listen.flac) —
+convincing to the ear and to the v0 detector; of undetermined origin per two
+independent satellites. This one clip is why FlashPoint's standalone
+detections are *nominations*, never confirmations.
+
+Satellite data then found the real ignition storm — and anchored
+re-listening recovered the thunder that rain noise had buried:
+
+![GLM located the real ignition storm](docs/media/kitten-glm-storm-map.png)
+
+With each GLM flash as a time anchor, the detector re-listened in the
+predicted arrival windows and recovered 22 flash→bang arrivals. Two of the
+strongest, with their spectrograms and the actual recordings:
+
+![Confirmed arrival: flash 22:20:50 at 20.4 km, thunder 59.6 s later](docs/flashmatch_222146.png)
+
+🔊 [raw](docs/media/w06c-20250702-222146Z-raw.flac) ·
+[normalized +47 dB](docs/media/w06c-20250702-222146Z-listen.flac) — the GLM
+flash fired 20.4 km away at 22:20:50; sound needed 59.6 s to reach the node,
+landing +3.6 s into this clip, exactly where the detector found the onset.
+
+![Three flashes, three thunder arrivals in one 30-second clip](docs/flashmatch_233336.png)
+
+🔊 [raw](docs/media/w06c-20250702-233336Z-raw.flac) ·
+[normalized +45 dB](docs/media/w06c-20250702-233336Z-listen.flac) — a volley:
+three separate flashes at 9.8, 18.0 and 13.7 km, three arrivals inside 11 s,
+each at its own predicted delay.
+
+And the frame that motivates the whole storm-mode controller — what the
+node's steerable camera was doing during the ignition storm (top two rows)
+and during the falsified events (bottom row): pointed at a cabin wall.
+
+![The PTZ watched a cabin wall through the ignition storm](docs/forensics_sheet.jpg)
+
+*(The same node's second chance came three weeks later: the Signal Flat fire,
+2025-07-26, 12 km out — same pattern, nobody listening.)*
+
+### Case 2 — Selma bust (Siskiyou OR): fourteen fires, five bone-dry days
+
+No lightning detector needed to see this one coming. Node W067's own weather
+station recorded a 37 °C heat spike and **0.06 mm of rain across five days**;
+then WFIGS logged 14 natural-cause fire discoveries in a single day, 14–34 km
+from the node. The gauge's only movement of the whole window — a 0.05 mm
+trace — arrives exactly at the fire line: the passing storm itself. Textbook
+dry lightning:
+
+![Selma bust — heat spike, bone-dry gauge, 14 fires in one day](docs/media/selma-dry-bust.png)
+
+The node also captured hourly imagery through the bust, but its files sit
+behind a per-node ACL we don't hold (403) — which is why W067 file access
+leads our camp asks. Media provenance for everything above:
+[docs/media/README.md](docs/media/README.md).
+
 ## Future directions
 
 - **NLDN arbitration.** A Vaisala research-data application (three case
