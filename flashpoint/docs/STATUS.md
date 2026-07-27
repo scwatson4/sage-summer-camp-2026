@@ -68,8 +68,19 @@ produce human-reviewed responder notifications. Sibling project EchoGuard shares
     the smoke-watch skill exercised against the W097 sim panorama (3/3).*
 - **D3–4:** multi-node fusion + GDOP-gated live strike map (ui/ prompt exists); Blitzortung replay
   harness = no-storm demo insurance.
+  - *2026-07-27: LANDED (`fusion/`) — incident grouping (flash coincidence), cross-node
+    candidate-RANSAC, GDOP/degeneracy gating (fix | ambiguous | range-only, never
+    over-claimed), self-contained strike-map HTML + strikes.json, live JSONL tail
+    mode. Demo e2e (`python -m fusion demo`): **5/5 strikes fused as clean fixes,
+    70–273 m error, camera+mic only**.*
 - **D5:** ignition-risk card v0.1 (dry flag from node gauge + SMAP/POWER dryness + fuel type;
   back-test table already in docs/m1-results.md) + Slack notification path.
+  - *2026-07-27: LANDED (`risk/`) — transparent v0.1 score (m1 weights, factor
+    breakdown + provenance on every card), live feeds (node gauge via public API;
+    NASA POWER GWETTOP verified live: 0.460 at the Kitten point 2025-07-01),
+    markdown + Slack Block Kit cards with the raw+annotated evidence rule and
+    publish-the-disagreements posture; dry-run default, SLACK_WEBHOOK_URL to arm.
+    15/15 tests.*
 - **Presentation:** slide 7 already tells the falsification→recovery arc; add live demo.
 
 ## Open science threads (post-camp / HCDP era)
