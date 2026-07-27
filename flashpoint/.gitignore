@@ -3,3 +3,5 @@
 __pycache__/
 *.pyc
 .claude/settings.local.json
+.scrub-secrets
+scrubbed/
