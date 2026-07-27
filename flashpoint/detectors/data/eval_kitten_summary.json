@@ -1,0 +1,44 @@
+{
+ "run": "2026-07-27T16:36:39+00:00",
+ "eval_window": [
+  "2025-07-02T21:00:00Z",
+  "2025-07-03T01:30:00Z"
+ ],
+ "clips": 49,
+ "positive_clips": 13,
+ "anchored_recall": [
+  20,
+  22
+ ],
+ "median_range_err_km": 0.769552794456482,
+ "unmatched_anchored": 72,
+ "standalone_passes": 60,
+ "auc_ours": 0.3888888888888889,
+ "auc_v0": 0.28205128205128205,
+ "config": {
+  "hop_s": 0.05,
+  "nperseg_s": 0.35,
+  "floor_pct": 20.0,
+  "excess_margin_db": 3.0,
+  "on_db": 6.0,
+  "off_db": 3.0,
+  "min_gap_s": 0.6,
+  "max_dur_s": 20.0,
+  "min_dur_s": 0.7,
+  "anchored_min_dur_s": 0.4,
+  "min_decay_rise_ratio": 1.2,
+  "anchored_decay_rise_ratio": 0.5,
+  "min_mid_fraction": 0.12,
+  "windy_ms": 8.0,
+  "windy_sub_over_mid_db": 12.0,
+  "extreme_sub_over_mid_db": 25.0,
+  "range_tol_km": 5.0,
+  "standalone_score": 0.55,
+  "anchored_score": 0.3,
+  "anchored_on_db": 3.5,
+  "anchored_off_db": 2.0,
+  "r_min_km": 0.3,
+  "r_max_km": 30.0,
+  "temp_c": 15.0
+ }
+}
