@@ -24,15 +24,29 @@ import urllib.request
 
 
 def build_card(strike: dict, risk: dict, watch: dict | None = None,
-               evidence: list[dict] | None = None):
+               evidence: list[dict] | None = None, provenance: str = "unknown",
+               corroboration: list[str] | None = None):
     """strike: fusion Strike.to_dict(); risk: score.score() output;
-    watch: {revisit_min, hours}; evidence: [{sector, raw, annotated, note}]."""
+    watch: {revisit_min, hours}; evidence: [{sector, raw, annotated, note}].
+
+    provenance: "demo" | "live" | "unknown" — a card must never let a
+    synthetic event pass for a real one (a drill must not read as an
+    emergency), so demo cards are banner-labeled and their titles prefixed.
+    corroboration: external anchors that make the strike credible, e.g.
+    ["GLM GOES-18 +0.4 s, 3.1 km", "NLDN stroke 22:16:17.2Z"]. EMPTY means
+    single-modality only — which M1 proved is not sufficient evidence, so
+    the card says so out loud rather than implying confirmation.
+    """
     ts = datetime.datetime.fromtimestamp(strike["time_epoch"],
                                          datetime.timezone.utc)
     f = risk["factors"]
     sources = f.sources or {}
+    prefix = {"demo": "[DEMO — SYNTHETIC] ", "live": "",
+              "unknown": "[UNVERIFIED SOURCE] "}.get(provenance, "")
     return {
-        "title": (f"Ignition risk {risk['total']:.0f}/100 — strike "
+        "provenance": provenance,
+        "corroboration": corroboration or [],
+        "title": (f"{prefix}Ignition risk {risk['total']:.0f}/100 — strike "
                   f"{ts:%Y-%m-%d %H:%M:%S}Z"),
         "dry_lightning": risk["dry_lightning"],
         "strike": {
@@ -60,18 +74,29 @@ def build_card(strike: dict, risk: dict, watch: dict | None = None,
 
 def render_markdown(card):
     s, sc = card["strike"], card["score"]
-    lines = [
-        f"## ⚡ {card['title']}",
+    prov = card.get("provenance", "unknown")
+    lines = [f"## ⚡ {card['title']}"]
+    if prov == "demo":
+        lines.append("**⚠️ DEMO — SYNTHETIC EVENT. Node coordinates are real; "
+                     "this strike is not. Do not act on it.**")
+    elif prov != "live":
+        lines.append("**⚠️ UNVERIFIED SOURCE — provenance not declared.**")
+    corr = card.get("corroboration") or []
+    lines.append("*external corroboration:* " + ("; ".join(corr) if corr else
+                 "**NONE — single-modality detection only; not confirmed "
+                 "lightning** (see M1: 17/17 audio-only candidates were "
+                 "falsified by satellite)"))
+    lines.extend([
         ("**DRY LIGHTNING** (rain below 2.5 mm at the node)"
          if card["dry_lightning"] else "wet strike (rain at node)"),
         f"- location: {s['lat']:.5f}, {s['lon']:.5f} — 1σ ellipse "
         f"{s['ellipse_m'][0]:.0f}×{s['ellipse_m'][1]:.0f} m, GDOP "
         f"{s['gdop']:.1f}, {s['n_nodes']} nodes [{s['quality']}]",
-        f"- ranges: " + ", ".join(f"{v} {r:.2f} km"
-                                  for v, r in s["ranges_km"].items()),
+        "- ranges: " + ", ".join(f"{v} {r:.2f} km"
+                                 for v, r in s["ranges_km"].items()),
         f"- **score {sc['total']:.0f}** = "
         + " + ".join(f"{k} {v:.0f}" for k, v in sc["breakdown"].items()),
-    ]
+    ])
     for name, (val, src) in sc["inputs"].items():
         lines.append(f"    - {name}: {val} ({src})")
     if card["watch"]:
