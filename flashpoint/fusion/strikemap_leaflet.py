@@ -29,7 +29,7 @@ C = {"node": "#7FDBFF", "fix": "#F5B722", "ambiguous": "#E0592A",
 
 PAGE = """<!DOCTYPE html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FlashPoint — Strike Map</title>
+<title>Sage FlashPoint — Strike Map</title>
 <style>__LEAFLET_CSS__</style>
 <style>
 html,body{margin:0;height:100%;background:__BG__;color:__TXT__;
@@ -51,7 +51,7 @@ html,body{margin:0;height:100%;background:__BG__;color:__TXT__;
   margin-right:6px;vertical-align:-1px}
 .fix-t{color:#F5B722}.ambiguous-t{color:#E0592A}.range-only-t{color:#AFC0D8}
 </style></head><body>
-<div class="hdr"><b>&#9889; FlashPoint</b> — fused strike map &nbsp;
+<div class="hdr"><b>&#9889; Sage FlashPoint</b> — fused strike map &nbsp;
   <span>__SUBTITLE__</span></div>
 <div id="map"></div>
 <script>__LEAFLET_JS__</script>

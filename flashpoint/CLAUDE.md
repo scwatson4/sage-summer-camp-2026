@@ -1,4 +1,6 @@
-# FlashPoint — Lightning Localization & Wildfire Ignition Watch (Sage Grande Testbed)
+# Sage FlashPoint — Multi-Node Lightning Localization & Wildfire Ignition Watch (Sage Grande Testbed)
+
+(Official name as of 2026-07-28: **Sage FlashPoint**; "FlashPoint" remains the shorthand in code and older docs.)
 
 Hackathon project for Sage Summer Camp 2026 (UIC, July 2026). Owner: Samuel Watson (Sage user `scwatson`, camp Thor blade `H03E`). Sibling project: EchoGuard (acoustic emergency localization) — shares the onset/fusion stack. Full plan: `docs/echoguard-flashpoint-plan.md` (read Part II first). Pitch deck: `deck/`.
 

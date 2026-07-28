@@ -1,4 +1,4 @@
-# FlashPoint / EchoGuard — Project Status (2026-07-24, camp week)
+# Sage FlashPoint / EchoGuard — Project Status (2026-07-24, camp week)
 
 ## What this project is
 

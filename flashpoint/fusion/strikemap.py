@@ -6,7 +6,7 @@ import math
 import pathlib
 
 TEMPLATE = """<!DOCTYPE html><html><head><meta charset="utf-8">
-<title>FlashPoint — Live Strike Map</title><style>
+<title>Sage FlashPoint — Live Strike Map</title><style>
 body{background:#151C2C;color:#F5F7FA;font:14px/1.5 'Segoe UI',system-ui,sans-serif;margin:0}
 header{padding:10px 18px;background:#222E47}header b{color:#F5B722}
 #wrap{display:flex}#map{flex:2}aside{flex:1;max-width:380px;padding:12px;overflow-y:auto;max-height:92vh}
@@ -15,7 +15,7 @@ header{padding:10px 18px;background:#222E47}header b{color:#F5B722}
 .fix{color:#F5B722}.ambiguous{color:#E0592A}.range-only{color:#AFC0D8}
 svg text{font:11px 'Segoe UI',sans-serif}
 </style></head><body>
-<header><b>&#9889; FlashPoint</b> — fused strike map <span style="color:#AFC0D8">__SUBTITLE__</span></header>
+<header><b>&#9889; Sage FlashPoint</b> — fused strike map <span style="color:#AFC0D8">__SUBTITLE__</span></header>
 <div id="wrap"><div id="map">__SVG__</div><aside>__CARDS__</aside></div>
 </body></html>"""
 

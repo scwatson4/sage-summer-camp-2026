@@ -1,8 +1,8 @@
-# FlashPoint — Lightning Localization & Wildfire Ignition Watch on the Sage Testbed
+# Sage FlashPoint — Multi-Node Lightning Localization & Wildfire Ignition Watch
 
 **Sage Summer Camp 2026 · Samuel Watson (UH Mānoa / HCDP) · Sage user `scwatson` · camp blade H03E**
 
-FlashPoint turns the Sage fleet's *existing* cameras, microphones, and weather
+**Sage FlashPoint** (formerly FlashPoint) turns the Sage fleet's *existing* cameras, microphones, and weather
 stations into a lightning-detection and wildfire ignition-watch system — no new
 hardware required. Weather feeds arm the nodes ahead of a storm, the sky camera
 gives each node a free absolute time-zero (the flash), the microphone gives
