@@ -93,7 +93,9 @@ suites):
 
 **Findings returned to the Sage program:** no soil/fuel-moisture sensor
 publishes anywhere on the fleet (a LoRaWAN soil probe would be the first);
-Colorado's six nodes have zero microphones; two documented cases of PTZ
+Colorado's six nodes have zero microphones; node liveness is task-level —
+W096's imagesampler sat silent for 24+ hours while its met and audio tasks
+kept flowing, so "node up" is not "camera up"; two documented cases of PTZ
 cameras idle or mis-aimed during ignition-relevant windows; per-node file-ACL
 map for the fire-country case-study nodes.
 
@@ -136,6 +138,13 @@ map for the fire-country case-study nodes.
   smoke-watch skill ran through the real sage-agent gateway — flagging
   exactly the true Halemaʻumaʻu plume and nothing on the confuser reel —
   surfacing three integration findings the standalone tests could not catch.
+  A follow-up agent-ladder run then verified the cloud escalation rung live
+  (glm-4.x-class via NVIDIA NIM: correct ESCALATE/QUIET text triage in
+  2–17 s) and made the perception leg non-simulated — live fleet frames
+  from W09E/W08B through the local vision model, zero plume false
+  positives. Hard finding from that run: the NIM endpoint silently drops
+  image parts, and the model hallucinates a scene if pixels are attached —
+  the cloud rung is therefore text-triage only, enforced in config.
 - **First neural result — audio classifier probe v0:** frozen YAMNet
   embeddings + logistic regression, 5-fold CV: **AUC 0.952 vs 0.699** for
   the DSP score on the same labels; at a 1-false-alarm/hour operating point
@@ -303,6 +312,12 @@ file access leads the camp access requests. Media provenance for everything abov
   proxy), regex-typed query filters, in-enclosure temperature sensors
   masquerading as ambient — half of data science on a real fleet is
   learning which streams mean what they say.
+- **Cloud LLM rungs get text, never pixels.** The escalation endpoint
+  silently dropped image attachments — no error — and, prompted as if it
+  could see, confidently hallucinated a building fire in a forest frame.
+  A confident wrong answer with no error signal is the M1 failure mode at
+  a different layer; the config now forbids images on the cloud rung and
+  pins frame reads to the local vision model.
 - **Edge-first framing changes designs.** Keeping raw audio/video on the node
   and shipping only tiny event records isn't just privacy hygiene — it's what
   makes storm-mode capture affordable within node budgets.
