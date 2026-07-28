@@ -75,7 +75,8 @@ suites):
 - `detectors/` — noise-adaptive thunder + flash detectors with anchored
   listening windows and range-consistency gating
 - `plugin-thunder/` — the thunder detector packaged as a Sage/Waggle ECR
-  plugin (pywaggle, validated locally)
+  plugin (pywaggle); built and **run on a Sage node**, with detected
+  candidates published to and verified in the public cloud query API
 - `controller/` — the storm-mode state machine with budget guardrails, live
   feeds (NWS free-tier; Xweather polled only when elevated), and a replay
   harness
@@ -83,9 +84,10 @@ suites):
   RANSAC, GDOP-gated solver, strike-map generation
 - `risk/` — transparent ignition-risk score with per-factor provenance, Slack
   delivery with the raw+annotated evidence rule, Socket Mode review loop
-- `agent/` — smoke-watch skills shaped for `waggle-sensor/sage-agent`
-  (risk-first sector patrol, evidence renderer, sim panoramas for
-  camera-in-the-loop testing)
+- `agent/` — smoke-watch skills for `waggle-sensor/sage-agent` (risk-first
+  sector patrol, evidence renderer, sim panoramas), validated end-to-end
+  through the **real sage-agent gateway** on the camp node: the true plume
+  flagged, the confuser reel clean (simulated PTZ, live vision captions)
 - `dashboard/` — the forensic workbench used to build and audit all of the
   above
 
@@ -127,6 +129,18 @@ map for the fire-country case-study nodes.
   records cross-referenced to node positions, fleet census (103 Chicagoland
   nodes; 51 mics, 51 cameras), TDOA feasibility Monte Carlo on real geometry
   (median 135–331 m depending on onset timing noise).
+- **On-node validation (H03E, ARM64):** all seven test suites green on the
+  camp Thor blade; the archive eval reproduced on-node (20/22 recall,
+  0.8 km median range error); the edge plugin ran on the node with
+  candidates published to the cloud API (task=thunder, vsn=H03E); the
+  smoke-watch skill ran through the real sage-agent gateway — flagging
+  exactly the true Halemaʻumaʻu plume and nothing on the confuser reel —
+  surfacing three integration findings the standalone tests could not catch.
+- **First neural result — audio classifier probe v0:** frozen YAMNet
+  embeddings + logistic regression, 5-fold CV: **AUC 0.952 vs 0.699** for
+  the DSP score on the same labels; at a 1-false-alarm/hour operating point
+  it recovers 15/22 arrivals where the DSP recovers 1. The rain-masked
+  thunder the DSP cannot separate is separable in the embedding.
 - **Live delivery validated:** risk cards posted to Slack with inline evidence
   strips and working review buttons; reviewer decisions logged end-to-end.
 
@@ -224,9 +238,10 @@ file access leads the camp access requests. Media provenance for everything abov
   windows, ~65k km²) was submitted 2026-07-24. NLDN's ~100–150 m accuracy is
   the only reference that can grade the project's ~100 m claims and arbitrate the 22
   recovered arrivals plus 72 newer candidates.
-- **Neural thunder classifier.** The 17 falsified positives, 22 confirmed
-  arrivals, and every Slack review click are labeled examples; a small
-  classifier on top of the DSP front end is the natural next model.
+- **Neural thunder classifier.** Probe v0 (YAMNet embeddings + logistic
+  regression, AUC 0.952 vs 0.699 DSP) validates the direction; next steps
+  are more storms, the reviewer-click labels accumulating in Slack, and
+  distilling the probe into the edge plugin.
 - **Smoke leg.** Adopt the official `sage-smoke-detection` SmokeyNet plugin
   for the holdover watch (the patrol skill already enforces its dwell and
   horizon-band requirements), few-shot-tuned for non-California horizons.
@@ -292,8 +307,9 @@ file access leads the camp access requests. Media provenance for everything abov
   than the dashboard; several integrations stop at validated dry-run sinks
   rather than live actuation; and evaluation depth everywhere traded against
   breadth of the end-to-end chain.
-- **One real storm validates the audio chain.** Thunder-detector recall and
-  range error come from a single event (Kitten). Flash detection and fusion
+- **One real storm validates the audio chain.** Thunder-detector recall,
+  range error, and the probe-v0 AUC all come from a single event (Kitten;
+  13 positive clips) — promising, not proven. Flash detection and fusion
   are validated on a synthetic demo storm over real node geometry — real
   multi-node flash+thunder captures don't exist yet because storm mode wasn't
   running when the archives were recorded (that's the point of the project,
