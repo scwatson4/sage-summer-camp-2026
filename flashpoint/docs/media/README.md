@@ -18,6 +18,8 @@ full scale — essentially silent without gain).
 | `w06c-20250703-014604Z-falsified-listen.flac` | listening copy of the above | +37.7 dB |
 | `kitten-glm-storm-map.png` | GLM flashes around the Kitten Fire point, from the committed ground-truth fixture (`detectors/data/kitten_glm.json`, a deduplicated 955-flash subset; the full dual-satellite scan holds 219 in-window flashes ≤25 km). | — |
 | `selma-dry-bust.png` | W067's own met streams (public Sage query API, `wxt.env.temp` + `wxt.rain.accumulation`, 2025-07-05→10, 10-min means). | — |
+| `live-perception-strip-w09e-allsky-20260728.jpg` | Agent-ladder stage 2 contact sheet: W09E all-sky fisheye, raw 03:00Z + 04:00Z UT frames + detector view. gemma4:31b read: `haze` both frames; the lone YOLO/COCO output ("bowl" 0.50 on the fisheye disk) is the documented dead-weight finding. Derived via `agent/evidence.py`; raw source frames in the live pack manifest. | — |
+| `live-perception-strip-w08b-skyline-20260728.jpg` | Same run, W08B skyline camera: raw pair + detector view, gemma4:31b `haze`/`none`, zero YOLO detections. Perception test, not an alert. | — |
 
 Source for the audio: Sage storage uploads by `sage-audio-sampler-0.4.1` on
 W06C (000048b02d3ae335), fetched with the `scwatson` grant. 48 kHz mono FLAC,
