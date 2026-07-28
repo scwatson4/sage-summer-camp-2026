@@ -85,15 +85,21 @@ suites):
 - `risk/` — transparent ignition-risk score with per-factor provenance, Slack
   delivery with the raw+annotated evidence rule, Socket Mode review loop
 - `agent/` — smoke-watch skills for `waggle-sensor/sage-agent` (risk-first
-  sector patrol, evidence renderer, sim panoramas), validated end-to-end
+  sector patrol, evidence renderer, test panoramas), validated end-to-end
   through the **real sage-agent gateway** on the camp node: the true plume
-  flagged, the confuser reel clean (simulated PTZ, live vision captions)
+  flagged, the confuser reel clean (test-mode PTZ, live vision captions)
 - `dashboard/` — the forensic workbench used to build and audit all of the
   above
 
 **Findings returned to the Sage program:** no soil/fuel-moisture sensor
 publishes anywhere on the fleet (a LoRaWAN soil probe would be the first);
-Colorado's six nodes have zero microphones; node liveness is task-level —
+the manifest is not the archive (97 nodes
+advertise microphones but only 64 ever published audio; four record audio
+with none listed — including W021 in Colorado, which overturns the earlier
+manifest-based finding that Colorado has zero microphones); the fleet's two
+most fire-exposed recording nodes (V040 and V041, Oregon — 55 and 53
+natural-cause fires within 35 km) ran their microphones only in autumn and
+winter, capturing zero of their 35 storm days; node liveness is task-level —
 W096's imagesampler sat silent for 24+ hours while its met and audio tasks
 kept flowing, so "node up" is not "camera up"; two documented cases of PTZ
 cameras idle or mis-aimed during ignition-relevant windows; per-node file-ACL
@@ -115,7 +121,7 @@ map for the fire-country case-study nodes.
   justification for the nominate-only contract.
 - **Satellite-free localization:** integration test fuses camera-flash anchors
   + thunder across nodes to a **96 m** fix with no satellite and no clock
-  sync; fusion demo places 5/5 strikes as clean fixes at 70–273 m error.
+  sync; the fusion replay places 5/5 strikes as clean fixes at 70–273 m error.
 - **Controller validation:** replayed against the real Kitten storm feed —
   armed 145 min ahead of the first local flash, scheduled the holdover watch,
   expired cleanly; 19/19 tests.
@@ -140,7 +146,7 @@ map for the fire-country case-study nodes.
   surfacing three integration findings the standalone tests could not catch.
   A follow-up agent-ladder run then verified the cloud escalation rung live
   (glm-4.x-class via NVIDIA NIM: correct ESCALATE/QUIET text triage in
-  2–17 s) and made the perception leg non-simulated — live fleet frames
+  2–17 s) and moved the perception leg onto live data — real fleet frames
   from W09E/W08B through the local vision model, zero plume false
   positives. Hard finding from that run: the NIM endpoint silently drops
   image parts, and the model hallucinates a scene if pixels are attached —
@@ -150,6 +156,16 @@ map for the fire-country case-study nodes.
   the DSP score on the same labels; at a 1-false-alarm/hour operating point
   it recovers 15/22 arrivals where the DSP recovers 1. The rain-masked
   thunder the DSP cannot separate is separable in the embedding.
+- **Fleet-history storm catalog (Jetstream2, complete):** 7.05 million GOES
+  GLM granules read across 1,140 satellite-days (2021–2026, all four GOES
+  satellites, boundaries verified against the archives); 353 natural-cause
+  fires within 35 km of a sensing node; 2,263 storm days scored for archive
+  coverage; **448 (fire, node) pairs ranked as retrospective candidates**,
+  with the Kitten Fire landing at #4 — and the scanner independently
+  reproducing M1's nearest-flash distance (3.13 vs 3.1 km) and dry/wet rain
+  split before any bulk run. Snapshot audio captures only 0.6–2.3% of storm
+  wall-clock — the quantified case for storm mode. 54 dry-lightning
+  candidates identified across 11 nodes.
 - **Live delivery validated:** risk cards posted to Slack with inline evidence
   strips and working review buttons; reviewer decisions logged end-to-end.
 
@@ -268,17 +284,14 @@ file access leads the camp access requests. Media provenance for everything abov
   permissions are the only missing piece.
 - **Fleet deployment.** ECR submission of `plugin-thunder`, and real
   job-control sinks once camp scheduling permissions are resolved.
-- **Fleet-history storm catalog (Jetstream2 — in progress).** A GLM bulk
-  scan over the fleet's whole deployment history is running on Jetstream2:
-  the 13-node first phase is complete (branch `catalog/glm-history`) and a
-  20-node extension is computing. The catalog feeds back four ways: every
-  lightning-near-node × fire-discovery coincidence it surfaces is a new
-  M1-style retrospective candidate (anchored re-listening against that
-  node's audio archive); every storm over a microphone node is labeled
-  training data for the neural classifier — directly attacking the
-  one-storm limitation; per-node storm climatology calibrates the
-  controller's capture budgets; and the coincidence ranking prioritizes
-  both future node-access requests and NLDN window requests.
+- **Work the retrospective queue.** The fleet-history catalog (merged from
+  branch `catalog/glm-history`) ranks 448 (fire, node) pairs; Christ
+  Mountain/W021 tops the list with a 0.14 km flash-to-fire match and 2,017
+  archived audio clips, and four W06C coincidences from July 2026 sit in
+  the top 20. Each is an M1-style anchored re-listening waiting to run;
+  every storm over a recording node is classifier training data; the
+  per-node storm climatology calibrates controller budgets; and the
+  ranking prioritizes node-access and NLDN window requests.
 - **First fleet soil-moisture stream** via the camp LoRaWAN probe path, to
   replace the POWER/SMAP dryness proxy with in-situ readings.
 - **Camera siting for the smoke leg.** The Kitten forensics show that
@@ -291,7 +304,7 @@ file access leads the camp access requests. Media provenance for everything abov
   real horizon visibility, while the mic + met + compute can stay low where
   power and comms are easy. Sage already proves the pattern works where
   geography allows it — W097 overlooks the Kīlauea caldera, which is exactly
-  why the holdover-watch sim trains on its panoramas.
+  why the holdover-watch test panoramas are built from its imagery.
 
 ## Lessons learned
 
@@ -333,8 +346,9 @@ file access leads the camp access requests. Media provenance for everything abov
   breadth of the end-to-end chain.
 - **One real storm validates the audio chain.** Thunder-detector recall,
   range error, and the probe-v0 AUC all come from a single event (Kitten;
-  13 positive clips) — promising, not proven. Flash detection and fusion
-  are validated on a synthetic demo storm over real node geometry — real
+  13 positive clips) — promising, not proven. The catalog's ranked queue of
+  448 candidate retrospectives is the path to widening this. Flash detection and fusion
+  are validated on a replayed test storm over real node geometry — real
   multi-node flash+thunder captures don't exist yet because storm mode wasn't
   running when the archives were recorded (that's the point of the project,
   but it's still a gap until the next storm).
@@ -368,7 +382,7 @@ file access leads the camp access requests. Media provenance for everything abov
   stream through an SSH tunnel via the node — enough to observe how the
   camera behaves in a live setting — but PTZ *control* permissions were not
   granted during camp week. The patrol skill's re-aim commands are therefore
-  validated against the simulator only; live actuation awaits camera-control
+  validated in the framework's test mode only; live actuation awaits camera-control
   credentials from the node administrators.
 
 ## References & data sources
