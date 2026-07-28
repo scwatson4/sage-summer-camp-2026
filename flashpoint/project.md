@@ -255,6 +255,28 @@ leads our camp asks. Media provenance for everything above:
   geography allows it — W097 overlooks the Kīlauea caldera, which is exactly
   why our holdover-watch sim trains on its panoramas.
 
+## What we learned
+
+- **Trust nothing single-source.** The week's defining moment was watching two
+  satellites falsify all 17 of our confident audio detections. Building the
+  falsification into the pipeline (instead of quietly dropping the result)
+  turned an embarrassing negative into the project's strongest evidence.
+- **Handle evidence like it will be audited** — because it was. The archive's
+  fire-detection job had burned detection boxes into the only stored copies of
+  frames we later needed clean; we inpainted them back out, then adopted the
+  rule everywhere: raw files are never modified, overlays go on labeled
+  derived copies.
+- **The constraint that matters may not be software.** We came in thinking
+  camera *tasking* was the gap; the Kitten forensics taught us camera
+  *siting* (viewshed) is the harder half, and no controller fixes it.
+- **Archive data has sharp edges.** Per-node file ACLs, storage auth quirks
+  behind sandboxes, regex-typed query filters, in-enclosure temperature
+  sensors masquerading as ambient — half of data science on a real fleet is
+  learning which streams mean what they say.
+- **Edge-first framing changes designs.** Keeping raw audio/video on the node
+  and shipping only tiny event records isn't just privacy hygiene — it's what
+  makes storm-mode capture affordable within node budgets.
+
 ## Limitations
 
 - **Hackathon time constraint.** This system was designed and built in
@@ -285,3 +307,23 @@ leads our camp asks. Media provenance for everything above:
   unresolved, so the controller drives dry-run/agent-scheduler sinks; the
   22+72 recovered arrivals also remain unarbitrated by an independent
   ground-truth network until the NLDN request is decided.
+
+## References & data sources
+
+**Prior work this project builds on**
+- [Sage / Waggle](https://sagecontinuum.org) — the testbed, node hardware, data APIs, and the `audio-sampler`, `ptz-yolo`, and `smoke-detector` plugins whose archives made the retrospectives possible.
+- [sage-smoke-detection](https://github.com/sagecontinuum/sage-smoke-detection) — official Sage SmokeyNet plugin (HPWREN/FIgLib-trained); the planned smoke leg. Its horizon-band + dwell requirements shaped our PTZ patrol design.
+- [sage-agent](https://github.com/waggle-sensor/sage-agent) — the agentic PTZ framework our smoke-watch skills are shaped for.
+- Sage Autonomous Camera Control (Dematties et al.) and the Sage SDR lightning project — the PTZ plumbing and RF third modality our future directions target.
+- NDP "Sage Smoke Detection Workflow" (Ismael Perez, SDSC) — SmokeyNet preprocessing recipe we adopted.
+
+**Data**
+- [NIFC WFIGS Incident Locations](https://data-nifc.opendata.arcgis.com/) — wildfire discovery records (Kitten, Signal Flat, the 14-fire Selma bust).
+- [NOAA GOES-18/19 GLM on AWS Open Data](https://registry.opendata.aws/noaa-goes/) — the dual-satellite lightning cross-validation and anchor flashes.
+- [NASA POWER](https://power.larc.nasa.gov/) (GWETTOP dryness) and [NASA SMAP L3](https://nsidc.org/data/spl3smp_e) (soil moisture at both fire sites).
+- [NWS API](https://api.weather.gov) and [Vaisala Xweather](https://www.xweather.com/) — storm-mode controller feeds.
+- Sage data & storage APIs — W06C audio/imagery/met archives, W067 met streams, fleet manifests.
+- News corroboration: [Buckrail, July 3 2025](https://buckrail.com/btnf-sees-4000-lightning-strikes-8-small-fires-since-tuesday/) — 4,000+ strikes and 8 fire starts on the Bridger-Teton NF the week of the Kitten Fire.
+- Vaisala NLDN — research-data request submitted 2026-07-24 (evaluation-grade ground truth, pending).
+
+**Team & acknowledgments** — Samuel Watson (UH Mānoa / Hawaiʻi Climate Data Portal), with Claude (Anthropic) as pair-programmer throughout; thanks to the Sage Summer Camp 2026 organizers for node access grants and to the Sage team for keeping five years of fleet archives queryable enough that a week-long hackathon could mine them.
