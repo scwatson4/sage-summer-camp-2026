@@ -1,0 +1,15 @@
+name: "flashpoint-stormmode"
+version: "0.1.0"
+description: "Tiered storm-mode controller (FlashPoint D2-3): IDLE->OUTLOOK->APPROACH->STORM->AFTERMATH state machine with guardrails (capture budgets, timeouts, hysteresis) and a full published audit trail. Feeds: NWS alerts, Xweather cells/strikes (budget-aware), node met. Fleet actions are dry-run intents. Default mode replays the real Kitten Fire ignition storm (145 min trigger lead) fully offline."
+keywords: "lightning, storm-mode, controller, adaptive-sampling, wildfire, summer-camp"
+authors: "Samuel Watson <scwatson@hawaii.edu>"
+collaborators: ""
+funding: "NSF 1935984 (Sage)"
+license: ""
+homepage: "https://github.com/scwatson4/sage-summer-camp-2026/tree/main/flashpoint/plugin-stormmode"
+source:
+  architectures:
+    - "linux/arm64"
+  url: "https://github.com/scwatson4/sage-summer-camp-2026"
+  branch: "main"
+  directory: "flashpoint/plugin-stormmode"
