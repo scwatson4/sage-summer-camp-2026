@@ -1,0 +1,33 @@
+# FlashPoint ESCALATION profile — cloud rung via NVIDIA NIM glm-5.2.
+# Point PTZ_GRAPH_CONFIG here for escalation runs; the default
+# flashpoint.yaml stays local-first (ollama). Key comes from env ONLY:
+#   export OPENAI_API_KEY="$NVIDIA_API_KEY"   # from the Hermes env on H03E
+#
+# H03E-validated 2026-07-28: endpoint reachable from the node, text chat
+# works (2-17 s/call). glm-5.2 on this endpoint is TEXT-ONLY: image parts
+# are silently dropped (no API error) and the model may HALLUCINATE a scene
+# description if one is attached — never send it pixels. Frame reads stay on
+# the local gemma4:31b rung; this rung is for triage over skill output, met
+# context, and notification drafting.
+
+gateway:
+  default_ptz_id: ptz_primary
+
+model:
+  provider: openai_compat
+  model: z-ai/glm-5.2
+  base_url: https://integrate.api.nvidia.com/v1
+  temperature: 0.2
+  max_tokens: 2048
+
+vision:
+  gemma4_model: gemma4:31b   # frame reads stay local (see note above)
+
+skills_dir: ../skills
+
+skills:
+  holdover_smoke_watch:
+    dwell_s: 180
+    revisit_min: 20
+    watch_hours: 72
+    frame_pair_gap_s: 120
