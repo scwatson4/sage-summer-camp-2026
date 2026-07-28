@@ -1,5 +1,5 @@
 {
- "generated_from": "demo storm (synthetic replay, real Argonne geometry)",
+ "generated_from": "synthetic replay storm, real Argonne node geometry",
  "nodes": [
   {
    "vsn": "V032",
