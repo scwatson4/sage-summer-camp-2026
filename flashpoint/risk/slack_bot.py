@@ -110,8 +110,8 @@ def review_blocks(strike_id, provenance="live"):
         {"type": "context", "elements": [
             {"type": "mrkdwn",
              "text": ("_Human review only — no automated dispatch. Your "
-                      "decision is logged and becomes a labeled training "
-                      "example._" if provenance == "live" else
+                      "decision is logged and used to train the "
+                      "classifier._" if provenance == "live" else
                       "_DEMO event — decisions are logged but change nothing._")}]},
     ]
 
