@@ -237,6 +237,11 @@ file access leads the camp access requests. Media provenance for everything abov
 - **Hawaii wind-trigger variant.** Lightning is rare in Hawai'i; the same
   controller re-armed on wind/RH triggers (HCDP mesonet feeds) is the
   take-home deployment.
+- **Live PTZ actuation.** Camera-control credentials on the sanctioned
+  sandbox node (W0A4) are the unblock for exercising the patrol skill's
+  re-aim commands against real hardware — the camera's live web UI and
+  stream have already been reached through an SSH tunnel, so control
+  permissions are the only missing piece.
 - **Fleet deployment.** ECR submission of `plugin-thunder`, real job-control
   sinks once camp scheduling permissions are resolved, and a
   fleet-history GLM/storm catalog scan (Jetstream2 job spec ready) to find
@@ -307,6 +312,13 @@ file access leads the camp access requests. Media provenance for everything abov
   unresolved, so the controller drives dry-run/agent-scheduler sinks; the
   22+72 recovered arrivals also remain unarbitrated by an independent
   ground-truth network until the NLDN request is decided.
+- **Live PTZ control remains unexercised.** A hands-on session on the
+  sanctioned camera-sandbox node (W0A4) reached the camera's web UI and RTSP
+  stream through an SSH tunnel via the node — enough to observe how the
+  camera behaves in a live setting — but PTZ *control* permissions were not
+  granted during camp week. The patrol skill's re-aim commands are therefore
+  validated against the simulator only; live actuation awaits camera-control
+  credentials from the node administrators.
 
 ## References & data sources
 
