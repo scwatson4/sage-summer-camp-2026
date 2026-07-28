@@ -187,6 +187,18 @@ and during the falsified events (bottom row): pointed at a cabin wall.
 
 ![The PTZ watched a cabin wall through the ignition storm](docs/forensics_sheet.jpg)
 
+Two distinct failures hide in this image, and honesty requires separating
+them. The first is *tasking*: nothing told the camera a storm was happening —
+that's the problem the storm-mode controller solves. The second is *siting*,
+and no software fixes it: W06C sits low among trees and cabins, so even a
+perfectly aimed PTZ almost certainly had no sightline to a smolder 6 km away
+through lodgepole forest. Concretely, SmokeyNet scores a horizon band of the
+frame — and W06C's "horizon" is a treeline meters away. The legs of
+FlashPoint that don't need a view (thunder ranging, the met station, and in
+principle even flash time-zero — lightning lights the whole scene, cabin wall
+included) survive bad siting; visual smoke confirmation does not. See the
+camera-siting recommendation under Future directions.
+
 *(The same node's second chance came three weeks later: the Signal Flat fire,
 2025-07-26, 12 km out — same pattern, nobody listening.)*
 
@@ -231,6 +243,17 @@ leads our camp asks. Media provenance for everything above:
   every other Kitten-like event the fleet has already slept through.
 - **First fleet soil-moisture stream** via the camp LoRaWAN probe path, to
   replace the POWER/SMAP dryness proxy with in-situ readings.
+- **Camera siting for the smoke leg.** The Kitten forensics show that
+  low-sited cameras can't confirm smoke no matter how well they're tasked.
+  Two paths, cheapest first: (1) use FlashPoint's strike fix + uncertainty
+  ellipse to cue *existing* elevated camera networks (ALERTWildfire /
+  ALERTCalifornia, HPWREN) — Sage's ears pointing someone else's high eyes;
+  (2) a "wildfire sentinel" siting profile for future fire-country nodes:
+  the camera goes on a ridgeline, tower, or decommissioned fire lookout with
+  real horizon visibility, while the mic + met + compute can stay low where
+  power and comms are easy. Sage already proves the pattern works where
+  geography allows it — W097 overlooks the Kīlauea caldera, which is exactly
+  why our holdover-watch sim trains on its panoramas.
 
 ## Limitations
 
@@ -250,6 +273,11 @@ leads our camp asks. Media provenance for everything above:
 - **Night-strong asymmetry.** The camera-flash anchor is much weaker in
   daylight; daytime performance leans on satellite/RF anchors that aren't on
   the nodes yet.
+- **Low-sited cameras cap the smoke leg.** Several fire-country nodes
+  (W06C included) have no meaningful horizon view, so on those nodes the
+  72-hour watch can detect and localize the strike but cannot visually
+  confirm ignition — that requires elevated partner cameras or better-sited
+  future nodes (see Future directions).
 - **Ground truth is coarse.** GLM pixels are 8–14 km, so our sub-km range
   errors are measured against a reference fuzzier than the claim; NLDN access
   (pending) is required for a rigorous grade.
