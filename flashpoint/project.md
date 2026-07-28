@@ -257,10 +257,19 @@ file access leads the camp access requests. Media provenance for everything abov
   re-aim commands against real hardware — the camera's live web UI and
   stream have already been reached through an SSH tunnel, so control
   permissions are the only missing piece.
-- **Fleet deployment.** ECR submission of `plugin-thunder`, real job-control
-  sinks once camp scheduling permissions are resolved, and a
-  fleet-history GLM/storm catalog scan (Jetstream2 job spec ready) to find
-  every other Kitten-like event the fleet has already slept through.
+- **Fleet deployment.** ECR submission of `plugin-thunder`, and real
+  job-control sinks once camp scheduling permissions are resolved.
+- **Fleet-history storm catalog (Jetstream2 — in progress).** A GLM bulk
+  scan over the fleet's whole deployment history is running on Jetstream2:
+  the 13-node first phase is complete (branch `catalog/glm-history`) and a
+  20-node extension is computing. The catalog feeds back four ways: every
+  lightning-near-node × fire-discovery coincidence it surfaces is a new
+  M1-style retrospective candidate (anchored re-listening against that
+  node's audio archive); every storm over a microphone node is labeled
+  training data for the neural classifier — directly attacking the
+  one-storm limitation; per-node storm climatology calibrates the
+  controller's capture budgets; and the coincidence ranking prioritizes
+  both future node-access requests and NLDN window requests.
 - **First fleet soil-moisture stream** via the camp LoRaWAN probe path, to
   replace the POWER/SMAP dryness proxy with in-situ readings.
 - **Camera siting for the smoke leg.** The Kitten forensics show that
