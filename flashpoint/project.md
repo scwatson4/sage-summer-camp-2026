@@ -275,8 +275,9 @@ file access leads the camp access requests. Media provenance for everything abov
   was that camera *tasking* was the gap; the Kitten forensics showed camera
   *siting* (viewshed) is the harder half, and no controller fixes it.
 - **Archive data has sharp edges.** Per-node file ACLs, storage auth quirks
-  behind sandboxes, regex-typed query filters, in-enclosure temperature
-  sensors masquerading as ambient — half of data science on a real fleet is
+  behind sandboxes (worked around via the Sage MCP server's authenticated
+  proxy), regex-typed query filters, in-enclosure temperature sensors
+  masquerading as ambient — half of data science on a real fleet is
   learning which streams mean what they say.
 - **Edge-first framing changes designs.** Keeping raw audio/video on the node
   and shipping only tiny event records isn't just privacy hygiene — it's what
@@ -345,6 +346,8 @@ file access leads the camp access requests. Media provenance for everything abov
 - [NASA POWER](https://power.larc.nasa.gov/) (GWETTOP dryness) and [NASA SMAP L3](https://nsidc.org/data/spl3smp_e) (soil moisture at both fire sites).
 - [NWS API](https://api.weather.gov) and [Vaisala Xweather](https://www.xweather.com/) — storm-mode controller feeds.
 - Sage data & storage APIs — W06C audio/imagery/met archives, W067 met streams, fleet manifests.
+- [Sage Grande MCP server](https://mcp.sagecontinuum.org) — used two ways: its authenticated proxy endpoint carried every archive file download performed from cloud sandboxes (518+ audio clips and the case imagery; sandboxes strip Authorization headers, so direct Basic-auth downloads fail there), and its query/job tool suite was evaluated as the intended path for live storm-mode job control once scheduling permissions are granted.
+- NASA Earthdata Login — account registered for SMAP L3 access; real soil-moisture retrievals obtained for both fire sites via CMR granule search + EDL token download.
 - News corroboration: [Buckrail, July 3 2025](https://buckrail.com/btnf-sees-4000-lightning-strikes-8-small-fires-since-tuesday/) — 4,000+ strikes and 8 fire starts on the Bridger-Teton NF the week of the Kitten Fire.
 - Vaisala NLDN — research-data request submitted 2026-07-24 (evaluation-grade ground truth, pending).
 
