@@ -64,3 +64,21 @@ Notes from the 2026 Sage Summer Camp
 - Ollama on H03E already serves gemma4:31b / gemma4:e2b / gemma4-64k — doctor's
   agent+vision checks go green with zero extra pulls; YOLO grabs yolo11n.pt
   (~5.4 MB) on first detect.
+
+## H03E agent-ladder notes (2026-07-28)
+
+- NVIDIA NIM (`integrate.api.nvidia.com`) is reachable from the blade; the
+  Hermes `NVIDIA_API_KEY` in ~/.hermes/.env works for `openai_compat`
+  clients. glm-5.2 there is TEXT-ONLY — OpenAI-style `image_url` parts are
+  accepted-and-dropped with no error, and the model may hallucinate a scene
+  description. Probe with deliberately corrupt image bytes to prove drop
+  behavior (it then admits it has no vision).
+- The manifests endpoint returns gps_lat/gps_lon = null for some reporting
+  nodes (W09E, like W0A0) — keep a fallback coordinate source.
+- W096's imagesampler stopped publishing (≥24 h silent on 2026-07-28) while
+  its met/audio tasks run fine — check task-level liveness, not node-level.
+- `python3 -m controller live` prints through a pipe only with
+  PYTHONUNBUFFERED=1 — the poll lines sit in block-buffer otherwise and a
+  `timeout ... | head` capture looks like a hang.
+- sage-agent venv needs `pip install sage-data-client` if scripts mix query
+  API + ultralytics in one process.
