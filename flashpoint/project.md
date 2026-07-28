@@ -62,7 +62,7 @@ keep a camera on the spot through the holdover window.
 ## What it contributes
 
 **A validated design thesis: single-modality detection false-alarms
-confidently; fusion plus external anchoring is mandatory.** Our first-pass
+confidently; fusion plus external anchoring is mandatory.** The first-pass
 audio-only detector produced 17 confident thunder candidates — and
 dual-satellite GLM cross-validation (GOES-18 *and* GOES-19) falsified **all
 17**. Satellite-anchored re-listening then recovered 22 real flash→bang
@@ -132,7 +132,7 @@ map for the fire-country case-study nodes.
 
 ## Case files — see and hear the evidence
 
-Two of the wildfire cases we uncovered, told through the node's own data.
+Two of the wildfire cases uncovered by this project, told through the node's own data.
 Audio ships in pairs, per the project's evidence rule: `-raw.flac` is the
 untouched sensor recording; `-listen.flac` is a labeled derived copy,
 gain-normalized so a human can hear it (thunder 10–20 km out arrives at
@@ -214,15 +214,15 @@ dry lightning:
 ![Selma bust — heat spike, bone-dry gauge, 14 fires in one day](docs/media/selma-dry-bust.png)
 
 The node also captured hourly imagery through the bust, but its files sit
-behind a per-node ACL we don't hold (403) — which is why W067 file access
-leads our camp asks. Media provenance for everything above:
+behind a per-node ACL not granted to this project (403) — which is why W067
+file access leads the camp access requests. Media provenance for everything above:
 [docs/media/README.md](docs/media/README.md).
 
 ## Future directions
 
 - **NLDN arbitration.** A Vaisala research-data application (three case
   windows, ~65k km²) was submitted 2026-07-24. NLDN's ~100–150 m accuracy is
-  the only reference that can grade our ~100 m claims and arbitrate the 22
+  the only reference that can grade the project's ~100 m claims and arbitrate the 22
   recovered arrivals plus 72 newer candidates.
 - **Neural thunder classifier.** The 17 falsified positives, 22 confirmed
   arrivals, and every Slack review click are labeled examples; a small
@@ -253,21 +253,21 @@ leads our camp asks. Media provenance for everything above:
   real horizon visibility, while the mic + met + compute can stay low where
   power and comms are easy. Sage already proves the pattern works where
   geography allows it — W097 overlooks the Kīlauea caldera, which is exactly
-  why our holdover-watch sim trains on its panoramas.
+  why the holdover-watch sim trains on its panoramas.
 
-## What we learned
+## Lessons learned
 
-- **Trust nothing single-source.** The week's defining moment was watching two
-  satellites falsify all 17 of our confident audio detections. Building the
+- **Trust nothing single-source.** The week's defining result was two
+  satellites falsifying all 17 confident audio detections. Building the
   falsification into the pipeline (instead of quietly dropping the result)
   turned an embarrassing negative into the project's strongest evidence.
 - **Handle evidence like it will be audited** — because it was. The archive's
   fire-detection job had burned detection boxes into the only stored copies of
-  frames we later needed clean; we inpainted them back out, then adopted the
-  rule everywhere: raw files are never modified, overlays go on labeled
+  frames later needed clean; the boxes had to be inpainted back out, and the
+  rule was adopted everywhere: raw files are never modified, overlays go on labeled
   derived copies.
-- **The constraint that matters may not be software.** We came in thinking
-  camera *tasking* was the gap; the Kitten forensics taught us camera
+- **The constraint that matters may not be software.** The initial assumption
+  was that camera *tasking* was the gap; the Kitten forensics showed camera
   *siting* (viewshed) is the harder half, and no controller fixes it.
 - **Archive data has sharp edges.** Per-node file ACLs, storage auth quirks
   behind sandboxes, regex-typed query filters, in-enclosure temperature
@@ -300,7 +300,7 @@ leads our camp asks. Media provenance for everything above:
   72-hour watch can detect and localize the strike but cannot visually
   confirm ignition — that requires elevated partner cameras or better-sited
   future nodes (see Future directions).
-- **Ground truth is coarse.** GLM pixels are 8–14 km, so our sub-km range
+- **Ground truth is coarse.** GLM pixels are 8–14 km, so the sub-km range
   errors are measured against a reference fuzzier than the claim; NLDN access
   (pending) is required for a rigorous grade.
 - **No live fleet control yet.** Camp scheduling permissions on W-nodes are
@@ -312,10 +312,10 @@ leads our camp asks. Media provenance for everything above:
 
 **Prior work this project builds on**
 - [Sage / Waggle](https://sagecontinuum.org) — the testbed, node hardware, data APIs, and the `audio-sampler`, `ptz-yolo`, and `smoke-detector` plugins whose archives made the retrospectives possible.
-- [sage-smoke-detection](https://github.com/sagecontinuum/sage-smoke-detection) — official Sage SmokeyNet plugin (HPWREN/FIgLib-trained); the planned smoke leg. Its horizon-band + dwell requirements shaped our PTZ patrol design.
-- [sage-agent](https://github.com/waggle-sensor/sage-agent) — the agentic PTZ framework our smoke-watch skills are shaped for.
-- Sage Autonomous Camera Control (Dematties et al.) and the Sage SDR lightning project — the PTZ plumbing and RF third modality our future directions target.
-- NDP "Sage Smoke Detection Workflow" (Ismael Perez, SDSC) — SmokeyNet preprocessing recipe we adopted.
+- [sage-smoke-detection](https://github.com/sagecontinuum/sage-smoke-detection) — official Sage SmokeyNet plugin (HPWREN/FIgLib-trained); the planned smoke leg. Its horizon-band + dwell requirements shaped the PTZ patrol design.
+- [sage-agent](https://github.com/waggle-sensor/sage-agent) — the agentic PTZ framework the smoke-watch skills are shaped for.
+- Sage Autonomous Camera Control (Dematties et al.) and the Sage SDR lightning project — the PTZ plumbing and RF third modality the future directions target.
+- NDP "Sage Smoke Detection Workflow" (Ismael Perez, SDSC) — SmokeyNet preprocessing recipe adopted here.
 
 **Data**
 - [NIFC WFIGS Incident Locations](https://data-nifc.opendata.arcgis.com/) — wildfire discovery records (Kitten, Signal Flat, the 14-fire Selma bust).
@@ -326,4 +326,4 @@ leads our camp asks. Media provenance for everything above:
 - News corroboration: [Buckrail, July 3 2025](https://buckrail.com/btnf-sees-4000-lightning-strikes-8-small-fires-since-tuesday/) — 4,000+ strikes and 8 fire starts on the Bridger-Teton NF the week of the Kitten Fire.
 - Vaisala NLDN — research-data request submitted 2026-07-24 (evaluation-grade ground truth, pending).
 
-**Team & acknowledgments** — Samuel Watson (UH Mānoa / Hawaiʻi Climate Data Portal), with Claude (Anthropic) as pair-programmer throughout; thanks to the Sage Summer Camp 2026 organizers for node access grants and to the Sage team for keeping five years of fleet archives queryable enough that a week-long hackathon could mine them.
+**Team & acknowledgments** — Samuel Watson (UH Mānoa / Hawaiʻi Climate Data Portal), with Claude (Anthropic) as pair-programmer throughout; thanks to the Sage Summer Camp 2026 organizers for node access grants and to the Sage team for keeping five years of fleet archives queryable enough that a week-long hackathon could mine them. This work was supported in part by the National Science Foundation under Awards No. 2331263 and 2436842.

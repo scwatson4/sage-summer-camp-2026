@@ -45,10 +45,31 @@ def _project(payload):
 def render(payload, out_path):
     px, scale = _project(payload)
     parts = [f'<svg viewBox="0 0 700 700" width="100%" height="92vh">']
-    for n in payload["nodes"]:
-        x, y = px(n["lat"], n["lon"])
+    # greedy label placement: nodes in a tight cluster otherwise stack their
+    # labels on top of each other (Argonne spacing < label width at this zoom).
+    # Every node DOT is an obstacle too — a label clear of other labels can
+    # still sit on a neighbouring marker.
+    node_xy = [px(n["lat"], n["lon"]) for n in payload["nodes"]]
+    placed = [(x - 9, y - 9, x + 9, y + 9) for x, y in node_xy]
+
+    def label_spot(x, y, text):
+        w, h = 7 * len(text) + 6, 14
+        for dx, dy in ((11, 4), (-w - 11, 4), (-w / 2 + 2, -14),
+                       (-w / 2 + 2, 24), (11, -14), (-w - 11, -14),
+                       (11, 24), (-w - 11, 24), (26, 4), (-w - 26, 4)):
+            lx, ly = x + dx, y + dy
+            box = (lx - 2, ly - h, lx + w, ly + 4)
+            if all(box[2] < p[0] or box[0] > p[2] or box[3] < p[1]
+                   or box[1] > p[3] for p in placed):
+                placed.append(box)
+                return lx, ly
+        placed.append((x + 11, y - 10, x + 11 + w, y + 8))
+        return x + 11, y + 4  # fall back to default rather than dropping it
+
+    for n, (x, y) in zip(payload["nodes"], node_xy):
+        lx, ly = label_spot(x, y, n["vsn"])
         parts.append(f'<circle cx="{x:.0f}" cy="{y:.0f}" r="6" fill="#7FDBFF"/>'
-                     f'<text x="{x + 8:.0f}" y="{y + 4:.0f}" fill="#AFC0D8">{n["vsn"]}</text>')
+                     f'<text x="{lx:.0f}" y="{ly:.0f}" fill="#AFC0D8">{n["vsn"]}</text>')
     for t in payload.get("truth", []):
         x, y = px(t["lat"], t["lon"])
         parts.append(f'<text x="{x - 5:.0f}" y="{y + 5:.0f}" fill="#F5F7FA" '
