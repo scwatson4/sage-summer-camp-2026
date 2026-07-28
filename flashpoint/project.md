@@ -366,7 +366,7 @@ file access leads the camp access requests. Media provenance for everything abov
 - NDP "Sage Smoke Detection Workflow" (Ismael Perez, SDSC) — SmokeyNet preprocessing recipe adopted here.
 
 **Data**
-- [NIFC WFIGS Incident Locations](https://data-nifc.opendata.arcgis.com/) — wildfire discovery records (Kitten, Signal Flat, the 14-fire Selma bust).
+- [NIFC WFIGS Incident Locations](https://data-nifc.opendata.arcgis.com/) — the interagency wildfire incident ledger (IRWIN-fed): discovery records for Kitten, Signal Flat, and the 14-fire Selma bust. Fire cause is the responding agency's official determination — every "natural-cause" label in this work is a WFIGS attribution, not an inference. News is used only as corroboration, never as a case source.
 - [NOAA GOES-18/19 GLM on AWS Open Data](https://registry.opendata.aws/noaa-goes/) — the dual-satellite lightning cross-validation and anchor flashes.
 - [NASA POWER](https://power.larc.nasa.gov/) (GWETTOP dryness) and [NASA SMAP L3](https://nsidc.org/data/spl3smp_e) (soil moisture at both fire sites).
 - [NWS API](https://api.weather.gov) and [Vaisala Xweather](https://www.xweather.com/) — storm-mode controller feeds.
@@ -375,5 +375,12 @@ file access leads the camp access requests. Media provenance for everything abov
 - NASA Earthdata Login — account registered for SMAP L3 access; real soil-moisture retrievals obtained for both fire sites via CMR granule search + EDL token download.
 - News corroboration: [Buckrail, July 3 2025](https://buckrail.com/btnf-sees-4000-lightning-strikes-8-small-fires-since-tuesday/) — 4,000+ strikes and 8 fire starts on the Bridger-Teton NF the week of the Kitten Fire.
 - Vaisala NLDN — research-data request submitted 2026-07-24 (evaluation-grade ground truth, pending).
+
+**Models & software**
+- [YAMNet](https://tfhub.dev/google/yamnet/1) (Google Research, TF-Hub) — frozen audio embeddings for classifier probe v0.
+- [Ultralytics YOLO11](https://github.com/ultralytics/ultralytics) (yolo11n) — detection head in the sage-agent gateway runs.
+- [Gemma](https://ai.google.dev/gemma) (gemma4:31b via Ollama) — vision captioning in the real-gateway smoke-watch validation; GLM-4.x-class escalation via NVIDIA NIM is the configured cloud rung.
+- [Leaflet](https://leafletjs.com) 1.9.4 (vendored) — interactive strike maps; basemap tiles © OpenStreetMap contributors, © CARTO, and Esri.
+- `sage_data_client`, Streamlit + Altair (dashboard), NumPy/SciPy/soundfile (DSP), pywaggle (edge plugin).
 
 **Team & acknowledgments** — Samuel Watson (UH Mānoa / Hawaiʻi Climate Data Portal), with Claude (Anthropic) as pair-programmer throughout; thanks to the Sage Summer Camp 2026 organizers for node access grants and to the Sage team for keeping five years of fleet archives queryable enough that a week-long hackathon could mine them. This work was supported in part by the National Science Foundation under Awards No. 2331263 and 2436842.
