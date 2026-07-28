@@ -305,9 +305,19 @@ file access leads the camp access requests. Media provenance for everything abov
   72-hour watch can detect and localize the strike but cannot visually
   confirm ignition — that requires elevated partner cameras or better-sited
   future nodes (see Future directions).
-- **Ground truth is coarse.** GLM pixels are 8–14 km, so the sub-km range
-  errors are measured against a reference fuzzier than the claim; NLDN access
-  (pending) is required for a rigorous grade.
+- **Ground truth is coarse, and the fine reference is not yet approved.**
+  GLM pixels are 8–14 km, so the sub-km range errors are measured against a
+  reference fuzzier than the claim. A Vaisala research-use data request
+  (NLDN-grade strike data for the three case windows) was submitted
+  2026-07-24 and had not been approved as of this writing; the Xweather API
+  key's real-time endpoints work, but its historical archive is
+  entitlement-walled on the pay-as-you-go tier.
+- **Node archive access was incomplete.** File-level read access
+  (imagery/audio) to several fire-country nodes was requested but not
+  granted during camp week: W067 — which blocked the Selma imagery review —
+  plus the Lakeview MT twins W084/W06F and W019 (Eugene). Additional
+  applicable storm and wildfire case data likely exists in those archives
+  and could not be examined; public numeric telemetry was unaffected.
 - **No live fleet control yet.** Camp scheduling permissions on W-nodes are
   unresolved, so the controller drives dry-run/agent-scheduler sinks; the
   22+72 recovered arrivals also remain unarbitrated by an independent
