@@ -2,9 +2,8 @@
 
 **Sage Summer Camp 2026 · Samuel Watson (UH Mānoa / HCDP) · Sage user `scwatson` · camp blade H03E**
 
-**Sage FlashPoint** (formerly FlashPoint) turns the Sage fleet's *existing* cameras, microphones, and weather
-stations into a lightning-detection and wildfire ignition-watch system — no new
-hardware required. Weather feeds arm the nodes ahead of a storm, the sky camera
+**Sage FlashPoint** turns the Sage fleet's *existing* cameras, microphones, and weather
+stations into a lightning-detection and wildfire ignition-watch system. Weather feeds arm the nodes ahead of a storm, the sky camera
 gives each node a free absolute time-zero (the flash), the microphone gives
 range (flash-to-bang), multi-node geometry gives location, and every strike
 becomes a multi-day holdover-fire watchpoint with camera smoke monitoring and
@@ -14,7 +13,7 @@ human-reviewed risk notifications.
 
 ## What the system can do
 
-- **Detect lightning on commodity node sensors.** A noise-adaptive,
+- **Detect lightning on node sensors.** A noise-adaptive,
   spectrally-whitened thunder detector finds thunder onsets even in rain noise;
   a scene-luminance flash detector uses the sky camera as a photometer (no
   aiming needed) and assigns fisheye azimuth sectors.
@@ -24,7 +23,7 @@ human-reviewed risk notifications.
   with an honest uncertainty ellipse; GDOP/degeneracy gating reports
   `fix | ambiguous | range-only` and never over-claims.
 - **Arm itself before the storm.** A tiered controller
-  (IDLE→OUTLOOK→APPROACH→STORM→AFTERMATH) escalates capture from free NWS
+  (IDLE→OUTLOOK→APPROACH→STORM→AFTERMATH) escalates capture from NWS
   outlooks through radar cell tracks to continuous storm capture, with
   guardrails (daily budget, storm-hour cap, timeouts, hysteresis) and a full
   audit trail. On a replay of the real ignition storm it armed **145 minutes
@@ -169,7 +168,7 @@ map for the fire-country case-study nodes.
 - **Live delivery validated:** risk cards posted to Slack with inline evidence
   strips and working review buttons; reviewer decisions logged end-to-end.
 
-## Case files — see and hear the evidence
+## Case files
 
 Two of the wildfire cases uncovered by this project, told through the node's own data.
 Audio ships in pairs, per the project's evidence rule: `-raw.flac` is the
@@ -274,16 +273,11 @@ file access leads the camp access requests. Media provenance for everything abov
   per-node anchor — making zero-sync ranging work in daytime and through
   cloud, and enabling positive-polarity flagging (the disproportionately
   fire-starting strikes).
-- **Hawaii wind-trigger variant.** Lightning is rare in Hawai'i; the same
-  controller re-armed on wind/RH triggers (HCDP mesonet feeds) is the
-  take-home deployment.
 - **Live PTZ actuation.** Camera-control credentials on the sanctioned
   sandbox node (W0A4) are the unblock for exercising the patrol skill's
   re-aim commands against real hardware — the camera's live web UI and
   stream have already been reached through an SSH tunnel, so control
   permissions are the only missing piece.
-- **Fleet deployment.** ECR submission of `plugin-thunder`, and real
-  job-control sinks once camp scheduling permissions are resolved.
 - **Work the retrospective queue.** The fleet-history catalog (merged from
   branch `catalog/glm-history`) ranks 448 (fire, node) pairs; Christ
   Mountain/W021 tops the list with a 0.14 km flash-to-fire match and 2,017
@@ -412,4 +406,4 @@ file access leads the camp access requests. Media provenance for everything abov
 - [Leaflet](https://leafletjs.com) 1.9.4 (vendored) — interactive strike maps; basemap tiles © OpenStreetMap contributors, © CARTO, and Esri.
 - `sage_data_client`, Streamlit + Altair (dashboard), NumPy/SciPy/soundfile (DSP), pywaggle (edge plugin).
 
-**Team & acknowledgments** — Samuel Watson (UH Mānoa / Hawaiʻi Climate Data Portal), with Claude (Anthropic) as pair-programmer throughout; thanks to the Sage Summer Camp 2026 organizers for node access grants and to the Sage team for keeping five years of fleet archives queryable enough that a week-long hackathon could mine them. This work was supported in part by the National Science Foundation under Awards No. 2331263 and 2436842.
+**Team & acknowledgments** — Samuel Watson (UH Mānoa / Hawaiʻi Climate Data Portal); thanks to the Sage Summer Camp 2026 organizers for node access grants and to the Sage team for keeping five years of fleet archives queryable enough that a week-long hackathon could mine them. This work was supported in part by the National Science Foundation under Awards No. 2331263 and 2436842.
