@@ -93,6 +93,29 @@ the repo). Findings from the live exercise:
   `QUIET` in **2.2 s**. Text calls run 2–17 s vs the ~2–3 min local frame
   reads, so triage adds negligible latency to a patrol.
 
+## Live perception (stage 2) — H03E-validated 2026-07-28
+
+`live_evidence_demo.py`: freshest `imagesampler-top` frames from granted
+nodes through the local heads, packaged with `evidence.py` (raw untouched,
+annotations/before-after/strip under `derived/`, manifest provenance
+`live`, purpose "perception test — NOT an alert"). Packs land in
+`data/evidence-demo-live/` (gitignored — artifacts stay on disk).
+
+Run (night frames, W09E all-sky fisheye + W08B skyline rectilinear):
+
+- **gemma4:31b holds up on real urban night imagery**: correct
+  `haze`/`none` first-words on all four frames, zero plume false positives,
+  and the free-text lines are accurate (it recognizes the fisheye circle,
+  the skyline, the light bloom). 73–121 s per frame.
+- **YOLO/COCO is dead weight on sky cams**: 0 relevant detections; its one
+  output called the W09E fisheye disk a "bowl" (0.50). No smoke/fire class
+  exists — the SmokeyNet horizon-band upgrade remains the real plan.
+- **Fleet reality checks:** W096's imagesampler has been silent ≥24 h
+  (substituted W08B, same city-core triangle); cadence on these nodes is
+  HOURLY, so the runbook's 5–15 min pair becomes a 60 min pair — fine for
+  perception tests, but Tier-3 dwell pairs will come from the PTZ loop, not
+  the archive samplers.
+
 ## Evidence rule (Slack cards)
 
 Every frame ships as a **pair: raw capture + annotated copy** (SmokeyNet tile
