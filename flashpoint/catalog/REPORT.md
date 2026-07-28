@@ -1,6 +1,6 @@
 # FlashPoint storm–archive–fire catalog
 
-*Generated 2026-07-27 23:41 UTC from public sources only (GOES GLM on AWS anonymous, WFIGS, Sage query API). No Sage token was used.*
+*Generated 2026-07-28 04:49 UTC from public sources only (GOES GLM on AWS anonymous, WFIGS, Sage query API). No Sage token was used.*
 
 ## What this is
 
@@ -11,8 +11,8 @@ Every co-occurrence of lightning, node recording, and nearby wildfire across the
 - **Nodes.** 118 deployed W/V nodes carry a microphone or camera; 84 of them have a GPS fix in the manifest and can be fire-matched. The remaining 34 publish data but have no coordinates, so they are inventoried and excluded from every distance-based result here.
 - **Fires.** 353 natural-cause WFIGS incidents since 2021 within 35 km of such a node.
 - **Lightning.** GOES GLM L2 LCFA flash centroids, quality-flag 0, from the best-viewing operational satellite per date and longitude (G16 →2025-04-07, G17 →2023-01-10, G18 2022-09-19→, G19 2025-01-15→; boundaries verified against the S3 buckets).
-- **Scan.** 1,140 satellite-days planned ≈ 4,924,800 granules; **4,899,699 granules actually existed and were read** (99.5%). Granules were staged through tmpfs and deleted per hour, so nothing raw was retained.
-- **Archive completeness.** 215 of 1,140 satellite-days returned fewer than the nominal 4,320 granules. These are real GLM outages, not fetch failures: re-listing S3 for a sample of short days returned exactly the reduced count. Storm-day counts are therefore a lower bound on those dates.
+- **Scan.** 1,140 satellite-days planned ≈ 4,924,800 granules; **7,045,990 granules actually existed and were read** (143.1%). Granules were staged through tmpfs and deleted per hour, so nothing raw was retained.
+- **Archive completeness.** 302 of 1,140 satellite-days returned fewer than the nominal 4,320 granules. These are real GLM outages, not fetch failures: re-listing S3 for a sample of short days returned exactly the reduced count. Storm-day counts are therefore a lower bound on those dates.
 
 ### The cost lever is dates, not nodes
 
@@ -59,15 +59,22 @@ Ranked as candidate retrospective studies. `study_score` is a transparent weight
 
 ## (b) Per-node storm-day recording coverage — the duty-cycle argument
 
-Across the census nodes there are **1,188 storm days** (≥10 GLM flashes within 30 km of the node, May–September, after that node's deployment). The archive captured *something* on 61.5% of them and audio on 28.9%.
+Across the census nodes there are **2,263 storm days** (≥10 GLM flashes within 30 km of the node, May–September, after that node's deployment). The archive captured *something* on 52.2% of them and audio on 27.5%.
 
 | node | site | storm days | flashes | % any media | % audio | % imagery | clips | clips/day | audio duty % | exp clips/storm | nat. fires | nearest fire km |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| W084 | 27700 South Valley Road La | 216 | 30,799 | 71 | 19 | 70 | 10,607 | 49 | 0.6 | 18 | 18 | 15.2 |
+| W021 | Fort Collins, CO 80523 | 302 | 58,587 | 41 | 31 | 41 | 20,051 | 66 | 0.8 | 26 | 19 | 3.2 |
 | W06F | 27700 South Valley Road La | 216 | 30,797 | 80 | 32 | 78 | 18,137 | 84 | 1.0 | 31 | 18 | 15.2 |
+| W084 | 27700 South Valley Road La | 216 | 30,799 | 71 | 19 | 70 | 10,607 | 49 | 0.6 | 18 | 18 | 15.2 |
 | W06C | Amk Ranch Rd, Moran, WY 83 | 203 | 20,504 | 26 | 23 | 26 | 11,810 | 58 | 0.7 | 21 | 35 | 5.5 |
 | W029 | Utah Natural History Museu | 172 | 23,055 | 100 | 37 | 100 | 15,916 | 93 | 1.1 | 32 | 45 | 5.8 |
 | W045 | 102 S 200 E, Salt Lake Cit | 168 | 22,382 | 58 | 48 | 52 | 20,501 | 122 | 1.4 | 41 | 39 | 7.5 |
+| W016 | Austin, TX | 159 | 78,664 | 0 | 0 | 0 | 0 | 0 | 0.0 | 0 | 1 | 16.3 |
+| W06A | Lac du Flambeau, WI | 138 | 44,897 | 38 | 7 | 38 | 2,027 | 15 | 0.2 | 4 | 4 | 10.9 |
+| W085 | WWC7+Q93, Grand Forks, ND | 138 | 57,051 | 80 | 78 | 80 | 27,516 | 199 | 2.3 | 45 | 3 | 25.5 |
+| W083 | 72682 Maple St, New Odanah | 127 | 36,839 | 77 | 0 | 77 | 0 | 0 | 0.0 | 0 | 1 | 34.5 |
+| W08C | Marenisco Township, MI | 125 | 37,331 | 24 | 24 | 24 | 7,591 | 61 | 0.7 | 16 | 7 | 11.7 |
+| W0AA | 13457W Froemel Rd, Hayward | 86 | 31,489 | 43 | 43 | 43 | 9,383 | 109 | 1.3 | 22 | 3 | 7.8 |
 | W070 | 21941 Crestline Rd, Birch  | 61 | 5,638 | 43 | 43 | 43 | 6,591 | 108 | 1.3 | 33 | 4 | 10.9 |
 | V023 | Cuyamaca Peak, CA 91916 | 38 | 9,238 | 0 | 0 | 0 | 0 | 0 | 0.0 | 0 | 4 | 14.7 |
 | W067 | Selma, OR | 32 | 4,696 | 44 | 22 | 44 | 1,588 | 50 | 0.6 | 20 | 58 | 1.1 |
@@ -83,11 +90,18 @@ Before duty cycle enters the argument there is a scheduling problem. Most nodes 
 
 | node | audio from | audio to | audio days | of which May–Sep | months active | storm days | storm days WITH audio |
 |---|---|---|---|---|---|---|---|
-| W084 | 2022-05-18 | 2023-08-24 | 321 | 131 | 1,2,3,4,5,6,7,8,9,10,11,12 | 216 | 41 |
+| W021 | 2021-09-30 | 2024-04-19 | 752 | 206 | 1,2,3,4,5,6,7,8,9,10,11,12 | 302 | 95 |
 | W06F | 2025-01-27 | 2026-07-27 | 512 | 238 | 1,2,3,4,5,6,7,8,9,10,11,12 | 216 | 70 |
+| W084 | 2022-05-18 | 2023-08-24 | 321 | 131 | 1,2,3,4,5,6,7,8,9,10,11,12 | 216 | 41 |
 | W06C | 2023-06-29 | 2026-07-26 | 437 | 165 | 1,2,3,4,5,6,7,8,10,11,12 | 203 | 47 |
 | W029 | 2021-11-18 | 2023-07-05 | 539 | 195 | 1,2,3,4,5,6,7,8,9,10,11,12 | 172 | 63 |
 | W045 | 2022-02-11 | 2026-07-27 | 643 | 266 | 1,2,3,4,5,6,7,8,9,10,11,12 | 168 | 81 |
+| W016 | — | — | 0 | 0 | — | 159 | 0 |
+| W06A | 2023-06-29 | 2025-10-15 | 135 | 28 | 1,2,3,4,5,6,7,10,11 | 138 | 9 |
+| W085 | 2023-06-01 | 2026-07-27 | 1152 | 515 | 1,2,3,4,5,6,7,8,9,10,11,12 | 138 | 108 |
+| W083 | — | — | 0 | 0 | — | 127 | 0 |
+| W08C | 2022-05-31 | 2023-08-01 | 149 | 125 | 5,6,7,8,9,10 | 125 | 30 |
+| W0AA | 2023-10-07 | 2026-07-27 | 435 | 198 | 1,2,3,4,5,6,7,8,9,10,11,12 | 86 | 37 |
 | W070 | 2023-05-01 | 2026-07-27 | 937 | 392 | 1,2,3,4,5,6,7,8,9,10,11,12 | 61 | 26 |
 | V023 | — | — | 0 | 0 | — | 38 | 0 |
 | W067 | 2023-07-27 | 2025-12-12 | 544 | 169 | 1,2,3,4,5,6,7,8,9,10,11,12 | 32 | 7 |
@@ -105,7 +119,7 @@ Before duty cycle enters the argument there is a scheduling problem. Most nodes 
 
 Storm days with ≤2.5 mm at the node's own gauge, followed within 72 h by a natural-cause WFIGS fire within 35 km of the node. `rain_storm_mm` is measured across the storm window (first flash −3 h to last flash +9 h), which separates a dry nocturnal storm from a wet day far better than a UTC-day total.
 
-**50 candidates** across 8 nodes.
+**54 candidates** across 11 nodes.
 
 | node | storm day | flashes | nearest km | storm rain mm | day rain mm | audio | ptz | fire | fire km | lag h | acres |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -116,6 +130,7 @@ Storm days with ≤2.5 mm at the node's own gauge, followed within 72 h by a nat
 | W029 | 2025-09-07 | 248 | 7.0 | 0.02 | 0.02 | 0 | 0 | Reed Benson | 22.2 | 35.2 | 0.1 |
 | W06C | 2026-07-25 | 240 | 10.1 | 0.33 | 0.44 | 261 | 0 | East Pilgrim | 11.4 | 25.5 | 0.1 |
 | W045 | 2023-07-26 | 226 | 1.3 | 2.37 | 2.55 | 261 | 0 | Maverick Assist | 7.5 | 1.8 | 2.0 |
+| V040 | 2023-08-25 | 205 | 7.7 | 0.77 | 2.28 | 0 | 0 | Prather | 17.9 | 13.2 | 7.0 |
 | W029 | 2026-06-25 | 198 | 1.6 | 1.41 | 1.38 | 0 | 0 | Hogs Back | 26.3 | 45.0 | 0.2 |
 | W067 | 2025-08-27 | 188 | 20.5 | 0.61 | 4.66 | 261 | 0 | Southside Road | 22.4 | 14.8 | 0.0 |
 | W06C | 2026-07-26 | 186 | 1.8 | 0.62 | 0.79 | 18 | 0 | East Pilgrim | 11.4 | 1.1 | 0.1 |
@@ -132,8 +147,7 @@ Storm days with ≤2.5 mm at the node's own gauge, followed within 72 h by a nat
 | W019 | 2024-07-21 | 72 | 11.7 | 0.02 | 0.02 | 257 | 0 | Eames Creek | 31.6 | 2.5 | 0.1 |
 | W06C | 2025-07-01 | 66 | 2.5 | 0.90 | 1.08 | 261 | 957 | Kitten | 5.7 | 26.8 | 0.3 |
 | W067 | 2024-07-17 | 64 | 9.7 | 1.68 | 10.25 | 261 | 0 | Bald | 28.4 | 40.7 | 0.5 |
-| W070 | 2025-09-03 | 59 | 17.5 | 0.04 | 0.07 | 261 | 0 | RRU/COYOTE | 33.8 | 22.0 | 7.4 |
-| W029 | 2026-07-16 | 59 | 20.9 | 0.57 | 0.52 | 0 | 0 | Lewis Peak | 31.7 | 16.3 | 0.1 |
+| W021 | 2022-07-21 | 61 | 3.1 | 0.49 | 0.33 | 7 | 0 | Ted | 14.1 | 46.2 | 5.0 |
 
 ## Catalog files
 
