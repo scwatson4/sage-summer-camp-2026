@@ -72,6 +72,50 @@ required settings:**
 | **Escalation (default)** | `openai_compat` → **Hermes' NIM endpoint (glm-5.2)** | reuse the key already on H03E; check image-input support + quota |
 | Fallback escalation | openrouter / argo-proxy (at ANL) | only if NIM quota or vision-input requires |
 
+## Cloud rung: NIM glm-5.2 — H03E-validated 2026-07-28
+
+Profile: `config/flashpoint-nim.yaml` (`PTZ_GRAPH_CONFIG` → it;
+`export OPENAI_API_KEY="$NVIDIA_API_KEY"` from the node env — key never in
+the repo). Findings from the live exercise:
+
+- **Plumbing works:** `integrate.api.nvidia.com` reachable from H03E; the
+  sage-agent graph answered through `openai_compat` end-to-end in 8.0 s.
+- **TEXT-ONLY — do not send pixels.** The endpoint accepts OpenAI-style
+  `image_url` parts but silently drops them (no API error), and with an
+  image attached glm-5.2 may **hallucinate a detailed scene** (it invented
+  a building fire for a forest frame; with corrupt bytes it correctly
+  disclaims). Frame reads therefore stay on the local gemma4:31b rung —
+  which matches the skill design: the LLM is the CALLER-side triage on
+  hits, not a vision head.
+- **Escalation triage on the real patrol JSONs:** pano A → `ESCALATE` with
+  a faithful 3-sentence draft (sector 150, 2.3 km, age 4 h, risk 87, caption
+  evidence; correctly notes YOLO had no detections) in **2.3 s**; pano B →
+  `QUIET` in **2.2 s**. Text calls run 2–17 s vs the ~2–3 min local frame
+  reads, so triage adds negligible latency to a patrol.
+
+## Live perception (stage 2) — H03E-validated 2026-07-28
+
+`live_evidence_demo.py`: freshest `imagesampler-top` frames from granted
+nodes through the local heads, packaged with `evidence.py` (raw untouched,
+annotations/before-after/strip under `derived/`, manifest provenance
+`live`, purpose "perception test — NOT an alert"). Packs land in
+`data/evidence-demo-live/` (gitignored — artifacts stay on disk).
+
+Run (night frames, W09E all-sky fisheye + W08B skyline rectilinear):
+
+- **gemma4:31b holds up on real urban night imagery**: correct
+  `haze`/`none` first-words on all four frames, zero plume false positives,
+  and the free-text lines are accurate (it recognizes the fisheye circle,
+  the skyline, the light bloom). 73–121 s per frame.
+- **YOLO/COCO is dead weight on sky cams**: 0 relevant detections; its one
+  output called the W09E fisheye disk a "bowl" (0.50). No smoke/fire class
+  exists — the SmokeyNet horizon-band upgrade remains the real plan.
+- **Fleet reality checks:** W096's imagesampler has been silent ≥24 h
+  (substituted W08B, same city-core triangle); cadence on these nodes is
+  HOURLY, so the runbook's 5–15 min pair becomes a 60 min pair — fine for
+  perception tests, but Tier-3 dwell pairs will come from the PTZ loop, not
+  the archive samplers.
+
 ## Evidence rule (Slack cards)
 
 Every frame ships as a **pair: raw capture + annotated copy** (SmokeyNet tile

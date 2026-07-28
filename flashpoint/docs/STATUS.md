@@ -116,6 +116,32 @@ The whole stack re-validated on the camp Thor blade (ARM64), end to end:
 - Blade environment notes (PEP-668 pip, TF-on-ARM, sudo NOPASSWD list,
   registry state) appended to ../classroom-notes.md.
 
+## H03E agent ladder (2026-07-28, branch h03e-agent)
+
+Climbing from "simulated camera" toward a non-simulated agent
+(docs/h03e-agent-runbook.md):
+
+- **Stage 0** — doctor green on the existing venv; validated env re-applied.
+- **Stage 1, cloud rung LIVE:** sage-agent's `openai_compat` → NVIDIA NIM
+  glm-5.2 (`agent/config/flashpoint-nim.yaml`, key from node env). Agent
+  graph end-to-end in 8 s. Escalation triage over the real patrol JSONs is
+  correct both ways: pano A → ESCALATE with an evidence-faithful draft
+  (2.3 s), pano B → QUIET (2.2 s). **Hard finding: the endpoint silently
+  drops image parts and glm-5.2 will hallucinate a scene if pixels are
+  attached** — cloud rung is text-triage only; frame reads stay local.
+- **Stage 2, perception leg is now non-simulated:** live `imagesampler-top`
+  frames from W09E (all-sky fisheye) + W08B (skyline) through gemma4:31b +
+  YOLO, packaged via `agent/evidence.py` (raw untouched). gemma4 reads urban
+  night imagery correctly (haze/none, zero plume FPs, 73–121 s/frame);
+  YOLO/COCO is confirmed dead weight on sky cams. W096 imagesampler silent
+  ≥24 h; archive cadence is hourly.
+- **Stage 3 (real PTZ actuation): SKIPPED — not approved.** Precondition
+  unchanged: organizer-sanctioned camera (Lebiedzinski) or W0A4 credentials.
+- **Stage 4 smoke:** `controller live --dry-run` verified against real NWS
+  from the node (steady IDLE on a calm night, no spurious arms, no audit
+  writes without actions — correct). `risk listen` blocked: no
+  SLACK_APP_TOKEN/SLACK_BOT_TOKEN in .env yet.
+
 ## Open science threads (post-camp / HCDP era)
 
 Neural audio classifier (characterize the 17 false positives + detect rain-masked thunder);
