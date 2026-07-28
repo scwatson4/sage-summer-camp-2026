@@ -1,0 +1,86 @@
+{
+ "run": "see git log",
+ "model": "YAMNet (tfhub.dev/google/yamnet/1, frozen)",
+ "feature": "concat(mean,max) of frame embeddings (2048-d)",
+ "cv": "StratifiedKFold(5, shuffle, seed=0), pooled out-of-fold decision scores; StandardScaler + LogisticRegression(C=1, balanced)",
+ "clips": {
+  "positive": 13,
+  "control_negative": 27,
+  "storm_unlabeled_excluded": 36,
+  "control_audio_hours": 0.225
+ },
+ "probe": {
+  "auc": 0.9515669515669516,
+  "operating_point_1fa_per_h": {
+   "threshold": 1.7227559089660645,
+   "allowed_false_alarms": 0,
+   "clip_recall": [
+    9,
+    13
+   ],
+   "arrival_recall": [
+    15,
+    22
+   ]
+  }
+ },
+ "baselines_same_labels": {
+  "dsp_clip_score": {
+   "auc": 0.6994301994301995,
+   "operating_point_1fa_per_h": {
+    "threshold": 0.9615250021127553,
+    "allowed_false_alarms": 0,
+    "clip_recall": [
+     1,
+     13
+    ],
+    "arrival_recall": [
+     1,
+     22
+    ]
+   }
+  },
+  "v0_ratio": {
+   "auc": 0.6182336182336182,
+   "operating_point_1fa_per_h": {
+    "threshold": 9.65150579419321,
+    "allowed_false_alarms": 0,
+    "clip_recall": [
+     0,
+     13
+    ],
+    "arrival_recall": [
+     0,
+     22
+    ]
+   }
+  },
+  "yamnet_thunder_zeroshot": {
+   "auc": 0.5925925925925926,
+   "operating_point_1fa_per_h": {
+    "threshold": 0.011230717413127422,
+    "allowed_false_alarms": 0,
+    "clip_recall": [
+     2,
+     13
+    ],
+    "arrival_recall": [
+     3,
+     22
+    ]
+   }
+  }
+ },
+ "stored_eval_reference": {
+  "note": "eval_kitten_summary.json AUCs use storm-window negatives (13 pos vs 36 storm clips), not the control window",
+  "auc_ours": 0.389,
+  "auc_v0": 0.282
+ },
+ "storm_unlabeled_context": {
+  "note": "probe scores of the 36 ambiguous storm clips (72 unmatched anchored candidates live there), scored by a model trained on all labeled clips",
+  "above_probe_threshold": [
+   28,
+   36
+  ]
+ }
+}

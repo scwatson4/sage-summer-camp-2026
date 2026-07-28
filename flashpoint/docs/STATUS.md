@@ -83,6 +83,39 @@ produce human-reviewed responder notifications. Sibling project EchoGuard shares
     15/15 tests.*
 - **Presentation:** slide 7 already tells the falsification→recovery arc; add live demo.
 
+## H03E on-node validation (2026-07-27, branch h03e-validation)
+
+The whole stack re-validated on the camp Thor blade (ARM64), end to end:
+
+- **All 7 suites green:** thunder 7/7 · flash 8/8 · integration 96 m ·
+  stormmode 19/19 (lead 145.0 min) · risk 15/15 · smoke-watch sim 3/3 ·
+  fusion demo 5/5 fixes (70–273 m). Each runs in seconds.
+- **Real-data eval reproduced on the node:** anchored recall **20/22**,
+  median range err 0.8 km, control FA 35.6/h (direct basic-auth downloads
+  work from H03E; 76 clips cached).
+- **NEW — audio classifier probe v0** (`detectors/probe_v0.py`): frozen
+  YAMNet embeddings + logreg, 5-fold CV → **AUC 0.952** vs DSP 0.699 on the
+  same labels (stored eval: 0.389/0.282); recall @ 1 FA/h 9/13 clips /
+  15/22 arrivals (DSP: 1/13). The rain-masked-thunder separation the DSP
+  can't do lives in the embedding (zero-shot Thunder class alone: 0.59).
+  The open neural-classifier thread is now STARTED (see detectors/README.md).
+- **M2 milestone first light:** plugin-thunder built with pluginctl and run
+  ON A SAGE NODE; candidates published and verified via the public cloud
+  query (task=thunder, vsn=H03E, scores 0.65/0.80). Gotchas (image naming,
+  no mic in pods → bundled example.flac) in plugin-thunder/README.md.
+- **Tier-3 smoke-watch through the REAL sage-agent gateway** (not just the
+  standalone stub): pano A flags exactly the true Halemaumau plume
+  (risk-first order), pano B confuser reel flags NOTHING — after three
+  integration findings the standalone test could not catch (sim tilt origin,
+  caption temperature 1.0, e2b→31b thinking-model config; all documented in
+  agent/README.md sim caveats). Demo-validated env: `tilt_deg:34`,
+  `GEMMA4_TEMPERATURE=0 GEMMA4_OLLAMA_MODEL=gemma4:31b
+  GEMMA4_MAX_NEW_TOKENS=2048`. Caption latency with 31b thinking ≈2–3
+  min/frame on the Thor — fits the 180 s dwell + 20 min revisit budget, but
+  worth remembering when SmokeyNet replaces the placeholder head.
+- Blade environment notes (PEP-668 pip, TF-on-ARM, sudo NOPASSWD list,
+  registry state) appended to ../classroom-notes.md.
+
 ## Open science threads (post-camp / HCDP era)
 
 Neural audio classifier (characterize the 17 false positives + detect rain-masked thunder);

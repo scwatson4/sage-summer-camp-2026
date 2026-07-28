@@ -68,5 +68,33 @@ python detectors/eval_kitten.py --control                    # laptop/node
   (`flashpoint/dashboard/fp/geo.py` trilateration is the reference
   implementation).
 - Neural classifier pass (open science thread) to characterize the rain
-  false-alarm class the DSP gates can't separate.
+  false-alarm class the DSP gates can't separate — **started: see "Audio
+  classifier probe v0" below** (next: more storms/nodes, PANNs comparison,
+  event-level windows instead of clip-level).
 - Port into the `sound-event-detection` plugin fork for on-node M2 deployment.
+
+## Audio classifier probe v0 (camp, H03E)
+
+First pass at the neural-classifier thread: frozen **YAMNet** embeddings
+(concat of mean+max frame pooling, 2048-d) + logistic regression,
+5-fold stratified CV, pooled out-of-fold scores (`probe_v0.py`, results in
+`data/probe_v0_results.json`). Labels: positive = the 13 storm clips
+containing the 22 anchored arrivals; negative = the 27 rain-shower control
+clips (0.22 h — so the 1 FA/h operating point allows zero control false
+alarms). Baselines re-scored on the same label set.
+
+| Score | AUC | Recall @ 1 FA/h (clips / arrivals) |
+|---|---|---|
+| **Probe v0 (YAMNet + logreg)** | **0.952** | **9/13 · 15/22** |
+| DSP clip score (same labels) | 0.699 | 1/13 · 1/22 |
+| v0 ratio (same labels) | 0.618 | 0/13 · 0/22 |
+| YAMNet Thunder class, zero-shot | 0.593 | 2/13 · 3/22 |
+| DSP / v0 vs storm-window negatives (stored eval) | 0.389 / 0.282 | — |
+
+The learned probe separates rain-masked thunder from rain that the DSP
+scores cannot (0.95 vs 0.70 on identical labels), and the zero-shot Thunder
+class alone does not (0.59) — the separation lives in the embedding, not the
+AudioSet label. Context: 28/36 of the ambiguous storm clips (where the 72
+unmatched candidates live) score above the probe's operating threshold.
+Caveats: 40 labeled clips from a single node/storm; control window is
+same-day rain only — treat as a promising v0, not a validated detector.

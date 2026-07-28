@@ -3,3 +3,5 @@
 __pycache__/
 test-run/
 snapshot.jpg
+# external clone (sage-agent runbook step) — not part of this repo
+/sage-agent/
