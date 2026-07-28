@@ -1,0 +1,15 @@
+name: "flashpoint-flash"
+version: "0.1.0"
+description: "Scene-wide luminance-spike flash detector (FlashPoint D1-2): the fixed sky camera used as a photometer — robust-z spikes over a rolling-median baseline give ±0.5 s flash time anchors at any cadence, plus a coarse fisheye azimuth sector; publishes candidate events only (fusion/anchoring confirms). Sparse-cadence and daytime regimes are flagged, not trusted."
+keywords: "lightning, flash, camera, wildfire, photometer, summer-camp"
+authors: "Samuel Watson <scwatson@hawaii.edu>"
+collaborators: ""
+funding: "NSF 1935984 (Sage)"
+license: ""
+homepage: "https://github.com/scwatson4/sage-summer-camp-2026/tree/main/flashpoint/plugin-flash"
+source:
+  architectures:
+    - "linux/arm64"
+  url: "https://github.com/scwatson4/sage-summer-camp-2026"
+  branch: "main"
+  directory: "flashpoint/plugin-flash"

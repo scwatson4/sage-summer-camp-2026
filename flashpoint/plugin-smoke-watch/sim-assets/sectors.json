@@ -1,0 +1,100 @@
+{
+ "w097-pano-A-day-plume": {
+  "width": 11520,
+  "height": 2160,
+  "sector_deg": 60.0,
+  "sectors": [
+   {
+    "sector": 0,
+    "pan_center_deg": 30.0,
+    "source": "ptz-2025-07-24T1820Z.jpg",
+    "annotation_scrubbed": false,
+    "note": "ohia canopy, clear day (negative)"
+   },
+   {
+    "sector": 1,
+    "pan_center_deg": 90.0,
+    "source": "ptz-2025-10-01T2020Z.jpg",
+    "annotation_scrubbed": false,
+    "note": "ohia canopy, clear day (negative)"
+   },
+   {
+    "sector": 2,
+    "pan_center_deg": 150.0,
+    "source": "firedet-2025-10-05T1733Z-halemaumau-plume-day.jpg",
+    "annotation_scrubbed": true,
+    "note": "REAL Halemaumau gas plume, boxes scrubbed (THE positive)"
+   },
+   {
+    "sector": 3,
+    "pan_center_deg": 210.0,
+    "source": "ptz-2025-09-02T1820Z.jpg",
+    "annotation_scrubbed": false,
+    "note": "ohia canopy, scattered cloud (negative)"
+   },
+   {
+    "sector": 4,
+    "pan_center_deg": 270.0,
+    "source": "ptz-2025-12-01T2020Z.jpg",
+    "annotation_scrubbed": false,
+    "note": "ohia canopy, winter light (negative)"
+   },
+   {
+    "sector": 5,
+    "pan_center_deg": 330.0,
+    "source": "ptz-2025-10-05T2020Z.jpg",
+    "annotation_scrubbed": false,
+    "note": "canopy same day as the plume, 3 h later (negative)"
+   }
+  ]
+ },
+ "w097-pano-B-confusers": {
+  "width": 11520,
+  "height": 2160,
+  "sector_deg": 60.0,
+  "sectors": [
+   {
+    "sector": 0,
+    "pan_center_deg": 30.0,
+    "source": "ptz-2025-08-23T2220Z-fog.jpg",
+    "annotation_scrubbed": false,
+    "note": "full fog-out on a top smoke-day (confuser)"
+   },
+   {
+    "sector": 1,
+    "pan_center_deg": 90.0,
+    "source": "ptz-2025-09-02T2220Z.jpg",
+    "annotation_scrubbed": false,
+    "note": "dusk haze (confuser)"
+   },
+   {
+    "sector": 2,
+    "pan_center_deg": 150.0,
+    "source": "firedet-2025-09-02T1347Z-eruption-glow-clouds.jpg",
+    "annotation_scrubbed": true,
+    "note": "eruption glow lighting the cloud deck, boxes scrubbed (confuser)"
+   },
+   {
+    "sector": 3,
+    "pan_center_deg": 210.0,
+    "source": "ptz-2025-11-01T2020Z-rain.jpg",
+    "annotation_scrubbed": false,
+    "note": "rain-blurred lens (confuser)"
+   },
+   {
+    "sector": 4,
+    "pan_center_deg": 270.0,
+    "source": "firedet-2025-08-23T0954Z-eruption-glow-night.jpg",
+    "annotation_scrubbed": true,
+    "note": "night eruption glow + moonlit cloud, boxes scrubbed (confuser)"
+   },
+   {
+    "sector": 5,
+    "pan_center_deg": 330.0,
+    "source": "ptz-2025-12-30T1620Z-final-frame-ir.jpg",
+    "annotation_scrubbed": false,
+    "note": "pre-dawn IR (confuser)"
+   }
+  ]
+ }
+}

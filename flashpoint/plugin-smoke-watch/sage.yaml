@@ -1,0 +1,15 @@
+name: "flashpoint-smoke-watch"
+version: "0.1.0"
+description: "FlashPoint Tier-3: 72 h holdover smoke-watch patrol — visits lightning-strike sectors highest-risk-first, dwells for a before/after frame pair, uploads raw evidence for flagged sectors only. Honest scope: patrol orchestration + deterministic change-detection placeholder head (horizon-band 5x9 tile mean-luma diff); SmokeyNet horizon-band tiles are the planned upgrade; no real PTZ driver yet (pan/tilt recorded as metadata only). Offline demo patrols a bundled real-W097 panorama with a scrubbed Halemaumau plume."
+keywords: "wildfire, smoke, lightning, holdover, ptz, patrol, summer-camp"
+authors: "Samuel Watson <scwatson@hawaii.edu>"
+collaborators: ""
+funding: "NSF 1935984 (Sage)"
+license: ""
+homepage: "https://github.com/scwatson4/sage-summer-camp-2026/tree/main/flashpoint/plugin-smoke-watch"
+source:
+  architectures:
+    - "linux/arm64"
+  url: "https://github.com/scwatson4/sage-summer-camp-2026"
+  branch: "main"
+  directory: "flashpoint/plugin-smoke-watch"
