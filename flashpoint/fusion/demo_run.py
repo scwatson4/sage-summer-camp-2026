@@ -90,7 +90,7 @@ def run(n_nodes=6, quiet=False):
 
     OUT.mkdir(exist_ok=True)
     payload = {
-        "generated_from": "demo storm (synthetic replay, real Argonne geometry)",
+        "generated_from": "synthetic replay storm, real Argonne node geometry",
         "nodes": [{"vsn": v, "lat": p[0], "lon": p[1]} for v, p in nodes.items()],
         "strikes": [s.to_dict() for s in strikes],
         "truth": truth,
