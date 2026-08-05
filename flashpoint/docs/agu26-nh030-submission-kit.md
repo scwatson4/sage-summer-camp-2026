@@ -7,17 +7,19 @@ Deadline **Wed 5 Aug 2026, 23:59 EDT** (17:59 HST). No edits to text or authors 
 
 ## 1. Title (129 characters)
 
-What the Sensors Missed: Auditing Wildfire Monitoring Coverage Near Fire-Exposed Communities, with a Lightning-Ignition Prototype
+What the Sensors Missed: Auditing Wildfire Monitoring Coverage Near Fire-Exposed Communities, with a Lightning-Detection Prototype
 
-## 2. Abstract body (1,977 characters including spaces; ~1,660 excluding)
+## 2. Abstract body (1,989 characters including spaces; 1,669 excluding)
 
 Lightning-ignited fires can smolder for hours before anyone reports them, so the earliest warning is the strike itself. In July 2025 a natural-cause wildfire was found 5.7 km from a public sensor node in Grand Teton, Wyoming; the node's steerable camera faced a cabin wall through the ignition storm.
 
-The Sage Grande Testbed, a National Science Foundation (NSF) facility, already fields such nodes: the camera times the flash, the microphone times the thunder, and the gap gives range, with no new hardware or clock synchronization. Of 17 thunder candidates found by microphone alone, none had a flash within 50 km in either Geostationary Lightning Mapper record; the rule is therefore nominate, never confirm. Anchored re-listening recovered 22 thunder arrivals; a rebuilt detector found 20, at 0.77 km median range error.
+The Sage Grande Testbed, funded by the National Science Foundation (NSF), already fields such nodes: the camera times the flash, the microphone times the thunder, and the gap gives range, with no new hardware or clock synchronization. Of 17 thunder candidates found by microphone alone, none had a flash within 50 km in either of two Geostationary Lightning Mapper records; the rule is therefore nominate, never confirm. Re-listening at the ignition storm's mapped flash times recovered 22 thunder arrivals; a rebuilt detector found 20, at 0.77 km median range error.
 
-Coverage is the harder problem. Of 118 camera or microphone nodes, 97 advertise a microphone but only 64 ever recorded a clip, and across a 20-node census archived audio covers 27.5% of 2,263 storm days. Two Oregon nodes ranking second and third fleet-wide for nearby natural-cause fires, 55 and 53 within 35 km, recorded only September through February, catching none of their 35 storm days. Scheduling and siting, not algorithms, decide who is covered, and rescheduling is free.
+Coverage is the harder problem. Of 118 camera or microphone nodes, 97 advertise a microphone but only 60 of them ever recorded a clip, and across a 20-node sample archived audio covers 27.5% of 2,263 storm days. Two Oregon nodes ranking second and third fleet-wide for nearby natural-cause fires, 55 and 53 within 35 km, recorded only September through February, missing all 35 of their storm days. Scheduling and siting, not algorithms, decide who is covered.
 
-The audit ranks 448 fire-node pairs spanning 338 natural-cause fires since 2021. Screening those against Census tribal-area boundaries places three of 23 nodes on the reservation lands of three Ojibwe nations, with 107 pairs within 35 km of tribal areas. Nothing here is operational: every result is retrospective, and the review seat this design reserves for local and agency judgment sits empty. No nation, community, or agency has been consulted, so no place-identified ranking is released pending that. Who should hold that seat is the question brought to this session. Work performed on the Sage Grande Testbed, supported in part by NSF Awards 2331263 and 2436842.
+The audit ranks 448 fire-node pairs spanning 338 natural-cause fires since 2021. Screening those against US Census Bureau tribal-area boundaries places three of 23 nodes on the reservation lands of three Tribal nations, with 89 fires (107 pairs) within 35 km of tribal areas. Nothing here is operational: every result is retrospective, and the review seat this design reserves for local and agency judgment sits empty. No nation, community, or agency has been consulted, and no place-identified ranking is released pending consultation. Who should hold that seat is the question brought to this session. Supported in part by NSF Awards 2331263 and 2436842.
+
+*(Wording notes from the final adversarial review: "funded by the NSF" replaced "an NSF facility" — neither NSF nor Sage uses "facility," which NSF reserves for MREFC-class infrastructure. "Three Tribal nations" replaced "three Ojibwe nations" so the abstract does not name a people no one has consulted; the specific nations belong in consultation and, if appropriate, the talk. "89 fires (107 pairs)" disambiguates that the 35 km measurement is fire-to-boundary. "Only 60 of them" replaced "only 64" because the fleet-wide 64 includes four nodes recording with no listed microphone — the subset reading was false.)*
 
 **Check in the portal before pasting:** whether AGU's 2,000-character limit counts spaces.
 Including spaces this is 1,977 (27 to spare); excluding, ~1,660 (340 to spare). Read the live
@@ -172,8 +174,8 @@ which is the one line here with a contractual dimension.
 >
 > Screening the 448 ranked pairs against Census tribal-area boundaries puts three of the 23 nodes
 > on reservation land: **W0AA** (Lac Courte Oreilles), **W06A** (Lac du Flambeau), **W083** (Bad
-> River) — three Lake Superior Ojibwe nations. 107 of 448 pairs fall within 35 km of a tribal area.
-> The #6-ranked pair of 448 is on Lac Courte Oreilles land.
+> River) — three Lake Superior Ojibwe nations. The fires of 107 pairs (89 distinct fires) lie
+> within 35 km of a tribal area.
 >
 > Census polygons are a screen, not a determination: they omit ceded territory, off-reservation
 > treaty rights, ancestral lands, and cultural sites. All three bands hold usufructuary rights
@@ -190,4 +192,6 @@ during the evaluation period — the same coverage gap this audit measures fleet
 is my advisor's, not mine; I am not claiming its community relationships.*
 
 Three rules if you use it: never as an opening hook, never characterized as community-partnered,
-never without Leigh's sign-off on the wording.
+never without Leigh's sign-off on the wording. And never state any ranking position for a pair on
+tribal land pre-consultation — the abstract pledges no place-identified ranking, and a slide that
+says which rank sits on whose land would break that pledge on stage.
